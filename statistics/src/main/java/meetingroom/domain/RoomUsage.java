@@ -13,9 +13,9 @@ import lombok.Data;
 public class RoomUsage {
 
     @Id
-    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private Long roomId;
     private Integer reservedCount;
+    private String roomName;
 }

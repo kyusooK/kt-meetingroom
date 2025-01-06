@@ -1,11 +1,12 @@
 package meetingroom.domain;
 
-import meetingroom.domain.ReservationCreated;
-import meetingroom.domain.ReservationRejected;
 import meetingroom.external.MeetingRoom;
-import meetingroom.domain.ReservationModified;
 import meetingroom.ReservationmanagementApplication;
 import javax.persistence.*;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import lombok.Data;
 import java.util.Date;
@@ -50,32 +51,32 @@ public class Reservation  {
     @PostPersist
     public void onPostPersist(){
 
-        List<MeetingRoom> meetingRooms = ReservationmanagementApplication.applicationContext
-        .getBean(meetingroom.external.MeetingRoomService.class)
-        .getMeetingRoom();
-
-        MeetingRoom findRoom = meetingRooms.stream()
-        .filter(room -> room.getRoomName().equals(this.getRoomName()))
-        .findFirst()
-        .orElse(null);
-
         ObjectMapper mapper = new ObjectMapper();
-        Map<Long, Object> reservationMap = mapper.convertValue(getUserId(), Map.class);
+        Map<Long, Object> meetingRoomMap = mapper.convertValue(getMeetingRoomId(), Map.class);
+        Map<Long, Object> userMap = mapper.convertValue(getUserId(), Map.class);
 
-        if (findRoom != null) {
-            if (findRoom.getReservationStatus() == "AVAILABLED" && (reservationMap.get("rank").equals(findRoom.getRank()) || reservationMap.get("department").equals(findRoom.getDepartment()))) {
-                this.setReservationStatus(ReservationStatus.RESERVED);
-                ReservationCreated reservationCreated = new ReservationCreated(this);
-                reservationCreated.publishAfterCommit();
-            } else {
-                ReservationRejected reservationRejected = new ReservationRejected(this);
-                reservationRejected.publishAfterCommit();
-            }
-        } else {
-            // 요청한 회의실을 찾을 수 없는 경우
-            ReservationRejected reservationRejected = new ReservationRejected(this);
-            reservationRejected.publishAfterCommit();
+        MeetingRoom findRoom = ReservationmanagementApplication.applicationContext
+        .getBean(meetingroom.external.MeetingRoomService.class)
+        .getMeetingRoom((Long)meetingRoomMap.get("id"));
+
+        RestTemplate restTemplate = new RestTemplate();
+        String userServiceUrl = "http://localhost:8084/users/" + (Long)userMap.get("id");
+        ResponseEntity<Map> userInfo = restTemplate.getForEntity(userServiceUrl, Map.class);
+
+        if (findRoom == null) {
+            throw new IllegalArgumentException("요청한 회의실을 찾을 수 없습니다.");
         }
+    
+        if (!userInfo.getBody().get("rank").equals(findRoom.getRank()) && 
+            !userInfo.getBody().get("department").equals(findRoom.getDepartment())) {
+            throw new IllegalStateException("해당 회의실에 대한 예약 권한이 없습니다.");
+        }
+    
+        this.setReservationStatus(ReservationStatus.RESERVED);
+        this.setLocation(findRoom.getLocation());
+        this.setRoomName(findRoom.getRoomName());
+        ReservationCreated reservationCreated = new ReservationCreated(this);
+        reservationCreated.publishAfterCommit();
     
     }
 

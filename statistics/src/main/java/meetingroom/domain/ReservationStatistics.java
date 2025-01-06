@@ -1,15 +1,16 @@
 package meetingroom.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+
 import lombok.Data;
 import meetingroom.StatisticsApplication;
-import meetingroom.domain.MeetingRoomCancelAnalyzed;
-import meetingroom.domain.MeetingRoomReservationAnalyzed;
 
 @Entity
 @Table(name = "ReservationStatistics_table")
@@ -23,22 +24,14 @@ public class ReservationStatistics {
 
     private Integer reservedCount;
 
-    private Long roomId;
+    private String roomName;
+
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 
     @PostPersist
     public void onPostPersist() {
-        MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(
-            this
-        );
-        meetingRoomReservationAnalyzed.publishAfterCommit();
-
-        MeetingRoomCancelAnalyzed meetingRoomCancelAnalyzed = new MeetingRoomCancelAnalyzed(
-            this
-        );
-        meetingRoomCancelAnalyzed.publishAfterCommit();
     }
 
     public static ReservationStatisticsRepository repository() {
@@ -55,6 +48,7 @@ public class ReservationStatistics {
         
         ReservationStatistics reservationStatistics = new ReservationStatistics();
         reservationStatistics.setReservedCount(1);
+        reservationStatistics.setRoomName(reservationCreated.getRoomName());
         reservationStatistics.setReservationStatus(ReservationStatus.RESERVED);
         repository().save(reservationStatistics);
 

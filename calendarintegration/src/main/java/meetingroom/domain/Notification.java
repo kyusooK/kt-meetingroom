@@ -1,11 +1,16 @@
 package meetingroom.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Data;
 import meetingroom.CalendarintegrationApplication;
 
@@ -43,10 +48,10 @@ public class Notification {
     public static void registerCalendar(ReservationCreated reservationCreated) {
         
         ObjectMapper mapper = new ObjectMapper();
-        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
 
         Notification notification = new Notification();
-        notification.setUserId((String)reservationMap.get("userId"));
+        // notification.setUserId((String)reservationMap.get("id"));
         notification.setLocation(reservationCreated.getLocation());
         notification.setMeetingName(reservationCreated.getMeetingName());
         notification.setStartDate(reservationCreated.getStartDate());
@@ -57,19 +62,28 @@ public class Notification {
         CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
         calendarRegistered.publishAfterCommit();
 
+        sendToUser(reservationCreated);
+
     }
 
     public static void sendToUser(ReservationCreated reservationCreated) {
         ObjectMapper mapper = new ObjectMapper();
-        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
 
-        Notification notification = new Notification();
-        notification.setUserId((String)reservationMap.get("userId"));
-        notification.setMessage(reservationCreated.getMeetingName() + "회의가 예약되었습니다" + "장소:" + reservationCreated.getLocation() + "/" + reservationCreated.getRoomName() + " 예약 시간:" + reservationCreated.getStartDate() + "~" + reservationCreated.getEndDate()) ;
-        repository().save(notification);
+        repository().findById(reservationCreated.getReservationId()).ifPresent(notification->{
 
-        CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
-        calendarRegistered.publishAfterCommit();
+            // notification.setUserId((String)reservationMap.get("userId"));
+            notification.setMessage(
+                reservationCreated.getMeetingName() + "회의가 예약되었습니다" 
+                + "장소:" + reservationCreated.getLocation() + "/" + reservationCreated.getRoomName() + 
+                " 예약 시간:" + reservationCreated.getStartDate() + "~" + reservationCreated.getEndDate()
+                );
+            repository().save(notification);
+
+            CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
+            calendarRegistered.publishAfterCommit();
+
+        });
 
     }
 
@@ -77,7 +91,11 @@ public class Notification {
         
         repository().findById(reservationModified.getReservationId()).ifPresent(notification->{
             
-            notification.setMessage(reservationModified.getMeetingName() + "회의가 변경되었습니다" + "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()) ;
+            notification.setMessage(
+                reservationModified.getMeetingName() + "회의가 변경되었습니다" + 
+                "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + 
+                " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()
+                );
             repository().save(notification);
     
             CalendarDeleted calendarDeleted = new CalendarDeleted(notification);

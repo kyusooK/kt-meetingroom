@@ -12,9 +12,9 @@ import meetingroom.infra.AbstractEvent;
 public class MeetingRoomReservationAnalyzed extends AbstractEvent {
 
     private Long statisticsId;
-    private Long roomId;
     private Integer reservedCount;
     private ReservationStatus reservationStatus;
+    private String roomName;
 
     public MeetingRoomReservationAnalyzed(ReservationStatistics aggregate) {
         super(aggregate);

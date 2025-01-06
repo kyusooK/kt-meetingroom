@@ -47,7 +47,7 @@ logging:
 
 api:
   url: 
-    reservationmanagement: localhost:8082 
+    roommanagement: localhost:8087
     
 
 server:

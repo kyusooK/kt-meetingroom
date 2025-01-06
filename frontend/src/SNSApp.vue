@@ -52,7 +52,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        MyReservation
+                        예약 조회
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -62,7 +62,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        알림
+                        일정
                     </v-list-item>
 
 
@@ -98,7 +98,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        GetFacility
+                        설비 조회
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -131,7 +131,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        RoomUsage
+                        회의실 예약 분석
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -141,7 +141,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        FacilityHistory
+                        설비 사용 분석
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -152,18 +152,6 @@
                         style="font-weight:700;"
                     >
                         회의실
-                    </v-list-item>
-
-
-                    <v-list-item
-                        class="px-2"
-                        key="getMeetingRooms"
-                        to="/roommanagements/getMeetingRooms"
-                        @click="changeUrl()"
-                        color="primary"
-                        style="font-weight:700;"
-                    >
-                        GetMeetingRoom
                     </v-list-item>
                 </v-list>
             </v-navigation-drawer>

@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "roommanagement", url = "${api.url.roommanagement}")
 public interface MeetingRoomService {
-    @GetMapping(path = "/meetingRooms/search/getMeetingRoom")
-    public List<MeetingRoom> getMeetingRoom();
+    @GetMapping(path = "/meetingRooms/{id}")  // URL 패턴에 경로 변수 추가
+    public MeetingRoom getMeetingRoom(@PathVariable("id") Long id);
 }

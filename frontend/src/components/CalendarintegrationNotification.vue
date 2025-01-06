@@ -9,10 +9,10 @@
         </template>
 
         <v-card-title v-if="value._links">
-            알림 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            일정 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            알림
+            일정
         </v-card-title >        
 
         <v-card-text style="background-color: white;">

@@ -73,21 +73,21 @@ public class PolicyHandler {
         Notification.sendToUser(event);
     }
 
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ReservationCreated'"
-    )
-    public void wheneverReservationCreated_SendToUser(
-        @Payload ReservationCreated reservationCreated
-    ) {
-        ReservationCreated event = reservationCreated;
-        System.out.println(
-            "\n\n##### listener SendToUser : " + reservationCreated + "\n\n"
-        );
+    // @StreamListener(
+    //     value = KafkaProcessor.INPUT,
+    //     condition = "headers['type']=='ReservationCreated'"
+    // )
+    // public void wheneverReservationCreated_SendToUser(
+    //     @Payload ReservationCreated reservationCreated
+    // ) {
+    //     ReservationCreated event = reservationCreated;
+    //     System.out.println(
+    //         "\n\n##### listener SendToUser : " + reservationCreated + "\n\n"
+    //     );
 
-        // Sample Logic //
-        Notification.sendToUser(event);
-    }
+    //     // Sample Logic //
+    //     Notification.sendToUser(event);
+    // }
 
     @StreamListener(
         value = KafkaProcessor.INPUT,

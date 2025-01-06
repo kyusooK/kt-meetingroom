@@ -1,16 +1,21 @@
 package meetingroom.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Data;
 import meetingroom.RoommanagementApplication;
-import meetingroom.domain.RoomCreated;
-import meetingroom.domain.RoomModified;
-import meetingroom.domain.RoomStatusUpdated;
 
 @Entity
 @Table(name = "MeetingRoom_table")
@@ -65,7 +70,7 @@ public class MeetingRoom {
 
         repository().findById((Long)reservationMap.get("id")).ifPresent(meetingRoom->{
             
-            meetingRoom.setReservationStatus(ReservationStatus.CANCELED);
+            meetingRoom.setReservationStatus(ReservationStatus.RESERVED);
             repository().save(meetingRoom);
 
             RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
@@ -85,7 +90,7 @@ public class MeetingRoom {
 
         repository().findById((Long)reservationMap.get("id")).ifPresent(meetingRoom->{
             
-            meetingRoom.setReservationStatus(ReservationStatus.CANCELED);
+            meetingRoom.setReservationStatus(ReservationStatus.AVAILABLED);
             repository().save(meetingRoom);
 
             RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
