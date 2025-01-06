@@ -57,35 +57,21 @@ public class MeetingRoom {
 
     //<<< Clean Arch / Port Method
     public static void updateRoomStatus(ReservationCreated reservationCreated) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        MeetingRoom meetingRoom = new MeetingRoom();
-        repository().save(meetingRoom);
-
-        RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
-        roomStatusUpdated.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
+      
         
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
         
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
 
-        repository().findById(reservationCreated.get???()).ifPresent(meetingRoom->{
+        repository().findById((Long)reservationMap.get("id")).ifPresent(meetingRoom->{
             
-            meetingRoom // do something
+            meetingRoom.setReservationStatus(ReservationStatus.CANCELED);
             repository().save(meetingRoom);
 
             RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
             roomStatusUpdated.publishAfterCommit();
 
-         });
-        */
+        });
 
     }
 
@@ -94,35 +80,18 @@ public class MeetingRoom {
     public static void updateRoomStatus(
         ReservationCancelled reservationCancelled
     ) {
-        //implement business logic here:
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
 
-        /** Example 1:  new item 
-        MeetingRoom meetingRoom = new MeetingRoom();
-        repository().save(meetingRoom);
-
-        RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
-        roomStatusUpdated.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCancelled.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCancelled.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCancelled.get???()).ifPresent(meetingRoom->{
+        repository().findById((Long)reservationMap.get("id")).ifPresent(meetingRoom->{
             
-            meetingRoom // do something
+            meetingRoom.setReservationStatus(ReservationStatus.CANCELED);
             repository().save(meetingRoom);
 
             RoomStatusUpdated roomStatusUpdated = new RoomStatusUpdated(meetingRoom);
             roomStatusUpdated.publishAfterCommit();
 
-         });
-        */
+        });
 
     }
     //>>> Clean Arch / Port Method

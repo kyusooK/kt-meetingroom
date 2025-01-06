@@ -22,11 +22,19 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long notificationId;
 
-    @Embedded
-    private Message message;
+    private String userId;
 
-    @Embedded
-    private UserId userId;
+    private Date startDate;
+
+    private Date endDate;
+
+    private String roomName;
+
+    private String location;
+
+    private String message;
+
+    private String meetingName;
 
     @PostPersist
     public void onPostPersist() {
@@ -49,141 +57,63 @@ public class Notification {
 
     //<<< Clean Arch / Port Method
     public static void registerCalendar(ReservationCreated reservationCreated) {
-        //implement business logic here:
+        
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
 
-        /** Example 1:  new item 
         Notification notification = new Notification();
+        notification.setUserId((String)reservationMap.get("userId"));
+        notification.setLocation(reservationCreated.getLocation());
+        notification.setMeetingName(reservationCreated.getMeetingName());
+        notification.setStartDate(reservationCreated.getStartDate());
+        notification.setEndDate(reservationCreated.getEndDate());
+        notification.setRoomName(reservationCreated.getRoomName());
         repository().save(notification);
 
         CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
         calendarRegistered.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCreated.get???()).ifPresent(notification->{
-            
-            notification // do something
-            repository().save(notification);
-
-            CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
-            calendarRegistered.publishAfterCommit();
-
-         });
-        */
 
     }
 
-    //>>> Clean Arch / Port Method
+    public static void sendToUser(ReservationCreated reservationCreated) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
+
+        Notification notification = new Notification();
+        notification.setUserId((String)reservationMap.get("userId"));
+        notification.setMessage(reservationCreated.getMeetingName() + "회의가 예약되었습니다" + "장소:" + reservationCreated.getLocation() + "/" + reservationCreated.getRoomName() + " 예약 시간:" + reservationCreated.getStartDate() + "~" + reservationCreated.getEndDate()) ;
+        repository().save(notification);
+
+        CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
+        calendarRegistered.publishAfterCommit();
+
+    }
+
     //<<< Clean Arch / Port Method
     public static void sendToUser(ReservationModified reservationModified) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Notification notification = new Notification();
-        repository().save(notification);
-
-        NotificationSent notificationSent = new NotificationSent(notification);
-        notificationSent.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        // if reservationModified.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationModified.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationModified.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationModified.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationModified.get???()).ifPresent(notification->{
+        repository().findById(reservationModified.getReservationId()).ifPresent(notification->{
             
-            notification // do something
+            notification.setMessage(reservationModified.getMeetingName() + "회의가 예약되었습니다" + "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()) ;
             repository().save(notification);
-
-            NotificationSent notificationSent = new NotificationSent(notification);
-            notificationSent.publishAfterCommit();
-
-         });
-        */
+    
+            CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
+            calendarDeleted.publishAfterCommit();
+    
+        });
 
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
     public static void sendToUser(ReservationCancelled reservationCancelled) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Notification notification = new Notification();
-        repository().save(notification);
-
-        NotificationSent notificationSent = new NotificationSent(notification);
-        notificationSent.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCancelled.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCancelled.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCancelled.get???()).ifPresent(notification->{
+        repository().findById(reservationCancelled.getReservationId()).ifPresent(notification->{
             
-            notification // do something
+            notification.setMessage("회의가 취소되었습니다") ;
             repository().save(notification);
 
-            NotificationSent notificationSent = new NotificationSent(notification);
-            notificationSent.publishAfterCommit();
+            CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
+            calendarDeleted.publishAfterCommit();
 
-         });
-        */
-
-    }
-
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
-    public static void sendToUser(ReservationCreated reservationCreated) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Notification notification = new Notification();
-        repository().save(notification);
-
-        NotificationSent notificationSent = new NotificationSent(notification);
-        notificationSent.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCreated.get???()).ifPresent(notification->{
-            
-            notification // do something
-            repository().save(notification);
-
-            NotificationSent notificationSent = new NotificationSent(notification);
-            notificationSent.publishAfterCommit();
-
-         });
-        */
-
+        });
     }
 
     //>>> Clean Arch / Port Method
@@ -191,36 +121,15 @@ public class Notification {
     public static void deleteCalendar(
         ReservationCancelled reservationCancelled
     ) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Notification notification = new Notification();
-        repository().save(notification);
-
-        CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
-        calendarDeleted.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCancelled.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCancelled.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCancelled.get???()).ifPresent(notification->{
+        repository().findById(reservationCancelled.getReservationId()).ifPresent(notification->{
             
-            notification // do something
+            notification.setMessage("회의가 취소되었습니다");
             repository().save(notification);
 
             CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
             calendarDeleted.publishAfterCommit();
 
-         });
-        */
-
+        });
     }
     //>>> Clean Arch / Port Method
 

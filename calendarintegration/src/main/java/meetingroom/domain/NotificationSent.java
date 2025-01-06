@@ -12,8 +12,12 @@ import meetingroom.infra.AbstractEvent;
 public class NotificationSent extends AbstractEvent {
 
     private Long notificationId;
-    private Message message;
-    private UserId userId;
+    private String userId;
+    private Date startDate;
+    private Date endDate;
+    private String roomName;
+    private String location;
+    private String message;
 
     public NotificationSent(Notification aggregate) {
         super(aggregate);

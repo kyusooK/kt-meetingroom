@@ -2,6 +2,7 @@ package meetingroom.domain;
 
 import meetingroom.domain.ReservationCreated;
 import meetingroom.domain.ReservationRejected;
+import meetingroom.external.MeetingRoom;
 import meetingroom.domain.ReservationModified;
 import meetingroom.ReservationmanagementApplication;
 import javax.persistence.*;
@@ -19,58 +20,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 //<<< DDD / Aggregate Root
 public class Reservation  {
-
-
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    
-    
-    
-    
     private Long reservationId;
-    
-    
-    
     
     private Date startDate;
     
-    
-    
-    
     private Date endDate;
-    
-    
-    
     
     private String meetingName;
     
-    
-    
-    
     private String location;
-    
-    
-    
+
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
-    
-    
     
     @Embedded
     private FacilityRequestId facilityRequestId;
     
-    
-    
-    
     private String roomName;
-    
-    
-    
+
     @Embedded
     private UserId userId;
-    
-    
     
     @Embedded
     private MeetingRoomId meetingRoomId;
@@ -78,32 +50,23 @@ public class Reservation  {
     @PostPersist
     public void onPostPersist(){
 
-
+        // MeetingRoom meetingRoom = ReservationmanagementApplication.applicationContext
+        // .getBean(meetingroom.external.MeetingRoomService.class)
+        // .getMeetingRoomId(getReservationId());
+    
         ReservationCreated reservationCreated = new ReservationCreated(this);
         reservationCreated.publishAfterCommit();
-
-
 
         ReservationRejected reservationRejected = new ReservationRejected(this);
         reservationRejected.publishAfterCommit();
 
     
     }
-    @PrePersist
-    public void onPrePersist(){
-    FacilityRequest facilityRequest = ReservationApplication.applicationContext
-        .getBean(meetingroom.external.FacilityRequestService.class)
-        .getFacility(get??);
-    
-    }
-    @PreUpdate
-    public void onPreUpdate(){
 
-
+    @PostUpdate
+    public void onPostUpdate(){
         ReservationModified reservationModified = new ReservationModified(this);
         reservationModified.publishAfterCommit();
-
-    
     }
 
     public static ReservationRepository repository(){
@@ -111,33 +74,29 @@ public class Reservation  {
         return reservationRepository;
     }
 
-    public void CreateReservation(){
-        //
-    }
-
-
-//<<< Clean Arch / Port Method
     public void cancelReservation(CancelReservationCommand cancelReservationCommand){
         
-        //implement business logic here:
-        
+        repository().findById(reservationId).ifPresent(meetingRoom->{
+            
+            meetingRoom.setReservationStatus(ReservationStatus.AVAILABLED);
+            repository().save(meetingRoom);
 
-
-        ReservationCancelled reservationCancelled = new ReservationCancelled(this);
-        reservationCancelled.publishAfterCommit();
+            ReservationCancelled reservationCancelled = new ReservationCancelled(this);
+            reservationCancelled.publishAfterCommit();
+        });
     }
-//>>> Clean Arch / Port Method
-//<<< Clean Arch / Port Method
+    
     public void completemeeting(){
-        
-        //implement business logic here:
-        
+        repository().findById(reservationId).ifPresent(meetingRoom->{
+            
+            meetingRoom.setReservationStatus(ReservationStatus.AVAILABLED);
+            repository().save(meetingRoom);
 
+            MeetingCompleted meetingCompleted = new MeetingCompleted(this);
+            meetingCompleted.publishAfterCommit();
+        });
 
-        MeetingCompleted meetingCompleted = new MeetingCompleted(this);
-        meetingCompleted.publishAfterCommit();
     }
-//>>> Clean Arch / Port Method
 
 
 
