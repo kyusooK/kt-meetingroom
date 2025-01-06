@@ -32,16 +32,11 @@ public class FacilityRequest {
     public void onPostPersist() {
         FacilityCreated facilityCreated = new FacilityCreated(this);
         facilityCreated.publishAfterCommit();
-
-        FacilityDecreased facilityDecreased = new FacilityDecreased(this);
-        facilityDecreased.publishAfterCommit();
     }
 
-    @PrePersist
-    public void onPrePersist() {}
 
-    @PreUpdate
-    public void onPreUpdate() {
+    @PostUpdate
+    public void onPostUpdate() {
         FacilityModified facilityModified = new FacilityModified(this);
         facilityModified.publishAfterCommit();
     }
@@ -61,35 +56,20 @@ public class FacilityRequest {
 
     //<<< Clean Arch / Port Method
     public static void decreaseFacility(ReservationCreated reservationCreated) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        FacilityRequest facilityRequest = new FacilityRequest();
-        repository().save(facilityRequest);
-
-        FacilityDecreased facilityDecreased = new FacilityDecreased(facilityRequest);
-        facilityDecreased.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
+        System.out.println(reservationMap);
 
-        repository().findById(reservationCreated.get???()).ifPresent(facilityRequest->{
+        repository().findById(((Integer) reservationMap.get("id")).longValue()).ifPresent(facilityRequest->{
             
-            facilityRequest // do something
+            facilityRequest.setQuantity(facilityRequest.getQuantity() - 1); // do something
             repository().save(facilityRequest);
 
             FacilityDecreased facilityDecreased = new FacilityDecreased(facilityRequest);
             facilityDecreased.publishAfterCommit();
 
          });
-        */
 
     }
     //>>> Clean Arch / Port Method

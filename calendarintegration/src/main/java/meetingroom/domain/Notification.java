@@ -8,9 +8,6 @@ import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 import meetingroom.CalendarintegrationApplication;
-import meetingroom.domain.CalendarDeleted;
-import meetingroom.domain.CalendarRegistered;
-import meetingroom.domain.NotificationSent;
 
 @Entity
 @Table(name = "Notification_table")
@@ -36,18 +33,6 @@ public class Notification {
 
     private String meetingName;
 
-    @PostPersist
-    public void onPostPersist() {
-        CalendarRegistered calendarRegistered = new CalendarRegistered(this);
-        calendarRegistered.publishAfterCommit();
-
-        NotificationSent notificationSent = new NotificationSent(this);
-        notificationSent.publishAfterCommit();
-
-        CalendarDeleted calendarDeleted = new CalendarDeleted(this);
-        calendarDeleted.publishAfterCommit();
-    }
-
     public static NotificationRepository repository() {
         NotificationRepository notificationRepository = CalendarintegrationApplication.applicationContext.getBean(
             NotificationRepository.class
@@ -55,7 +40,6 @@ public class Notification {
         return notificationRepository;
     }
 
-    //<<< Clean Arch / Port Method
     public static void registerCalendar(ReservationCreated reservationCreated) {
         
         ObjectMapper mapper = new ObjectMapper();
@@ -89,12 +73,11 @@ public class Notification {
 
     }
 
-    //<<< Clean Arch / Port Method
     public static void sendToUser(ReservationModified reservationModified) {
         
         repository().findById(reservationModified.getReservationId()).ifPresent(notification->{
             
-            notification.setMessage(reservationModified.getMeetingName() + "회의가 예약되었습니다" + "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()) ;
+            notification.setMessage(reservationModified.getMeetingName() + "회의가 변경되었습니다" + "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()) ;
             repository().save(notification);
     
             CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
@@ -116,22 +99,18 @@ public class Notification {
         });
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
     public static void deleteCalendar(
         ReservationCancelled reservationCancelled
     ) {
         repository().findById(reservationCancelled.getReservationId()).ifPresent(notification->{
             
-            notification.setMessage("회의가 취소되었습니다");
-            repository().save(notification);
+            repository().delete(notification);
 
             CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
             calendarDeleted.publishAfterCommit();
 
         });
     }
-    //>>> Clean Arch / Port Method
 
 }
 //>>> DDD / Aggregate Root

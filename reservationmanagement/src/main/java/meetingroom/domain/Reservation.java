@@ -50,16 +50,32 @@ public class Reservation  {
     @PostPersist
     public void onPostPersist(){
 
-        // MeetingRoom meetingRoom = ReservationmanagementApplication.applicationContext
-        // .getBean(meetingroom.external.MeetingRoomService.class)
-        // .getMeetingRoomId(getReservationId());
-    
-        ReservationCreated reservationCreated = new ReservationCreated(this);
-        reservationCreated.publishAfterCommit();
+        List<MeetingRoom> meetingRooms = ReservationmanagementApplication.applicationContext
+        .getBean(meetingroom.external.MeetingRoomService.class)
+        .getMeetingRoom();
 
-        ReservationRejected reservationRejected = new ReservationRejected(this);
-        reservationRejected.publishAfterCommit();
+        MeetingRoom findRoom = meetingRooms.stream()
+        .filter(room -> room.getRoomName().equals(this.getRoomName()))
+        .findFirst()
+        .orElse(null);
 
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(getUserId(), Map.class);
+
+        if (findRoom != null) {
+            if (findRoom.getReservationStatus() == "AVAILABLED" && (reservationMap.get("rank").equals(findRoom.getRank()) || reservationMap.get("department").equals(findRoom.getDepartment()))) {
+                this.setReservationStatus(ReservationStatus.RESERVED);
+                ReservationCreated reservationCreated = new ReservationCreated(this);
+                reservationCreated.publishAfterCommit();
+            } else {
+                ReservationRejected reservationRejected = new ReservationRejected(this);
+                reservationRejected.publishAfterCommit();
+            }
+        } else {
+            // 요청한 회의실을 찾을 수 없는 경우
+            ReservationRejected reservationRejected = new ReservationRejected(this);
+            reservationRejected.publishAfterCommit();
+        }
     
     }
 

@@ -52,35 +52,15 @@ public class ReservationStatistics {
     public static void analyzeReservationMeeting(
         ReservationCreated reservationCreated
     ) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
+        
         ReservationStatistics reservationStatistics = new ReservationStatistics();
+        reservationStatistics.setReservedCount(1);
+        reservationStatistics.setReservationStatus(ReservationStatus.RESERVED);
         repository().save(reservationStatistics);
 
         MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(reservationStatistics);
         meetingRoomReservationAnalyzed.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCreated.get???()).ifPresent(reservationStatistics->{
-            
-            reservationStatistics // do something
-            repository().save(reservationStatistics);
-
-            MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(reservationStatistics);
-            meetingRoomReservationAnalyzed.publishAfterCommit();
-
-         });
-        */
 
     }
 
@@ -89,31 +69,17 @@ public class ReservationStatistics {
     public static void analyzeCancelReservation(
         ReservationCancelled reservationCancelled
     ) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        ReservationStatistics reservationStatistics = new ReservationStatistics();
-        repository().save(reservationStatistics);
-
-        */
-
-        /** Example 2:  finding and process
         
-        // if reservationCancelled.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCancelled.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
 
-        repository().findById(reservationCancelled.get???()).ifPresent(reservationStatistics->{
+        repository().findById(reservationCancelled.getReservationId()).ifPresent(reservationStatistics->{
             
-            reservationStatistics // do something
+            reservationStatistics.setReservedCount(reservationStatistics.getReservedCount() - 1);
+            reservationStatistics.setReservationStatus(ReservationStatus.CANCELED);
             repository().save(reservationStatistics);
 
-
-         });
-        */
+            MeetingRoomCancelAnalyzed meetingRoomCancelAnalyzed = new MeetingRoomCancelAnalyzed(reservationStatistics);
+            meetingRoomCancelAnalyzed.publishAfterCommit();
+        });
 
     }
     //>>> Clean Arch / Port Method
