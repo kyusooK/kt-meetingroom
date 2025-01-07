@@ -18,7 +18,7 @@ public interface FacilityRequestRepository
     @Query(
         value = "select facilityRequest " +
         "from FacilityRequest facilityRequest " +
-        "where(:resuorceType is null or facilityRequest.resuorceType = :resuorceType)"
+        "where(:resourceType is null or facilityRequest.resourceType =:resourceType)"
     )
-    FacilityRequest getFacility(ResourceType resuorceType);
+    FacilityRequest getFacility(ResourceType resourceType);
 }
