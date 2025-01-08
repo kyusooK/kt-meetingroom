@@ -15,6 +15,6 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class UserId {
 
-    private Long id;
+    private Long userId;
 }
 //>>> DDD / Value Object

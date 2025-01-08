@@ -1,14 +1,14 @@
 <template>
     <v-card outlined @click="openDialog">
         <v-card-title>
-            FacilityRequest : {{ referenceValue ? referenceValue.name : '' }}
+            FacilityRequest : {{ referenceValue ? referenceValue._links.self.href.split('/').pop() : '' }}
         </v-card-title>
 
         <v-dialog v-model="pickerDialog">
             <v-card>
                 <v-card-title>FacilityRequest</v-card-title>
                 <v-card-text>
-                    <FacilityRequestPicker v-model="value" @selected="pick"/>
+                    <ResourcemanagementFacilityRequestPicker v-model="value" @selected="pick"/>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
             }
             else {
                 this.newValue = this.value;
-                var path = '/facilityrequests';
+                var path = '/facilityRequests';
                 var temp = await axios.get(axios.fixUrl(path + '/' +  Object.values(this.value)[0]));
                 if(temp.data) {
                     this.referenceValue = temp.data
@@ -95,13 +95,13 @@
                     this.pickerDialog = true;
                 } else {
                     this.pickerDialog = false;
-                    this.$router.push(path + this.value.id);
+                    this.$router.push(path + this.value.facilityRequestId);
                 }
             },
             async pick(val){
                 this.newValue = val;
-                var path = '/facilityrequests';
-                var temp = await axios.get(axios.fixUrl(path + '/' + val.id));
+                var path = '/facilityRequests';
+                var temp = await axios.get(axios.fixUrl(path + '/' + val.facilityRequestId));
                 if(temp.data) {
                     this.referenceValue = temp.data;
                 }

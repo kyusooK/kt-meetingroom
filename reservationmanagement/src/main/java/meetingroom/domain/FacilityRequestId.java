@@ -1,12 +1,10 @@
 package meetingroom.domain;
 
-import java.util.Date;
-import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Embeddable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 //<<< DDD / Value Object
 @Embeddable
@@ -15,6 +13,6 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 public class FacilityRequestId {
 
-    private Long id;
+    private Long facilityRequestId;
 }
 //>>> DDD / Value Object

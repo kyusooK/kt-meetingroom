@@ -1,14 +1,14 @@
 <template>
     <v-card outlined @click="openDialog">
         <v-card-title>
-            MeetingRoom : {{ referenceValue ? referenceValue.name : '' }}
+            MeetingRoom : {{ referenceValue ? referenceValue._links.self.href.split('/').pop() : '' }}
         </v-card-title>
 
         <v-dialog v-model="pickerDialog">
             <v-card>
                 <v-card-title>MeetingRoom</v-card-title>
                 <v-card-text>
-                    <MeetingRoomPicker v-model="value" @selected="pick"/>
+                    <RoommanagementMeetingRoomPicker v-model="value" @selected="pick"/>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
             }
             else {
                 this.newValue = this.value;
-                var path = '/meetingrooms';
+                var path = '/meetingRooms';
                 var temp = await axios.get(axios.fixUrl(path + '/' +  Object.values(this.value)[0]));
                 if(temp.data) {
                     this.referenceValue = temp.data

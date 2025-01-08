@@ -1,14 +1,14 @@
 <template>
     <v-card outlined @click="openDialog">
         <v-card-title>
-            User : {{ referenceValue ? referenceValue.name : '' }}
+            User : {{ referenceValue ? referenceValue._links.self.href.split('/').pop() : '' }}
         </v-card-title>
 
         <v-dialog v-model="pickerDialog">
             <v-card>
                 <v-card-title>User</v-card-title>
                 <v-card-text>
-                    <UserPicker v-model="value" @selected="pick"/>
+                    <AccesscontrolUserPicker v-model="value" @selected="pick"/>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -95,13 +95,13 @@
                     this.pickerDialog = true;
                 } else {
                     this.pickerDialog = false;
-                    this.$router.push(path + this.value.id);
+                    this.$router.push(path + this.value.userId);
                 }
             },
             async pick(val){
                 this.newValue = val;
                 var path = '/users';
-                var temp = await axios.get(axios.fixUrl(path + '/' + val.id));
+                var temp = await axios.get(axios.fixUrl(path + '/' + val.userId));
                 if(temp.data) {
                     this.referenceValue = temp.data;
                 }

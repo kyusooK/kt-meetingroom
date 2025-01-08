@@ -52,7 +52,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        예약 조회
+                        예약 내역 조회
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -62,7 +62,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        일정
+                        알림
                     </v-list-item>
 
 
@@ -90,16 +90,6 @@
                     </v-list-item>
 
 
-                    <v-list-item
-                        class="px-2"
-                        key="getFacilities"
-                        to="/resourcemanagements/getFacilities"
-                        @click="changeUrl()"
-                        color="primary"
-                        style="font-weight:700;"
-                    >
-                        설비 조회
-                    </v-list-item>
                     <v-list-item
                         class="px-2"
                         key="reservationStatistics"
@@ -131,7 +121,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        회의실 예약 분석
+                        회의실 예약 및 이용률
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -141,7 +131,7 @@
                         color="primary"
                         style="font-weight:700;"
                     >
-                        설비 사용 분석
+                        설비 이력
                     </v-list-item>
                     <v-list-item
                         class="px-2"
@@ -153,6 +143,8 @@
                     >
                         회의실
                     </v-list-item>
+
+
                 </v-list>
             </v-navigation-drawer>
         </div>
@@ -282,16 +274,9 @@ export default {
             },
             { 
                 title: '예약 내역 조회', 
-                description: 'My Reservation을 관리하는 화면입니다.', 
+                description: 'MyReservation을 관리하는 화면입니다.', 
                 key: 'myReservations', 
                 route: '/reservationmanagements/myReservations',
-                ImageUrl: '',
-            },
-            { 
-                title: 'GetFacility', 
-                description: 'GetFacility을 관리하는 화면입니다.', 
-                key: 'getFacilities', 
-                route: '/resourcemanagements/getFacilities',
                 ImageUrl: '',
             },
             { 
@@ -306,13 +291,6 @@ export default {
                 description: 'FacilityHistory을 관리하는 화면입니다.', 
                 key: 'facilityHistories', 
                 route: '/statistics/facilityHistories',
-                ImageUrl: '',
-            },
-            { 
-                title: '회의실 조회', 
-                description: 'GetMeetingRoom을 관리하는 화면입니다.', 
-                key: 'getMeetingRooms', 
-                route: '/roommanagements/getMeetingRooms',
                 ImageUrl: '',
             },
             

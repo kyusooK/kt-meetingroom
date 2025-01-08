@@ -60,7 +60,7 @@ public class Reservation  {
         .getMeetingRoom((Long)meetingRoomMap.get("id"));
 
         RestTemplate restTemplate = new RestTemplate();
-        String userServiceUrl = "http://localhost:8084/users/" + (Long)userMap.get("id");
+        String userServiceUrl = "http://localhost:8084/users/" + (Long)userMap.get("userId");
         ResponseEntity<Map> userInfo = restTemplate.getForEntity(userServiceUrl, Map.class);
 
         if (findRoom == null) {
