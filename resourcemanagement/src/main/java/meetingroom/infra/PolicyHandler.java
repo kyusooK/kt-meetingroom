@@ -25,20 +25,20 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ReservationCreated'"
+        condition = "headers['type']=='MeetingCompleted'"
     )
-    public void wheneverReservationCreated_DecreaseFacility(
-        @Payload ReservationCreated reservationCreated
+    public void wheneverMeetingCompleted_UpdateFacilityStatus(
+        @Payload MeetingCompleted meetingCompleted
     ) {
-        ReservationCreated event = reservationCreated;
+        MeetingCompleted event = meetingCompleted;
         System.out.println(
-            "\n\n##### listener DecreaseFacility : " +
-            reservationCreated +
+            "\n\n##### listener UpdateFacilityStatus : " +
+            meetingCompleted +
             "\n\n"
         );
 
         // Sample Logic //
-        FacilityRequest.decreaseFacility(event);
+        FacilityRequest.updateFacilityStatus(event);
     }
 }
 //>>> Clean Arch / Inbound Adaptor

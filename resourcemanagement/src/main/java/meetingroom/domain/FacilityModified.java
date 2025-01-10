@@ -13,7 +13,6 @@ public class FacilityModified extends AbstractEvent {
 
     private Long facilityRequestId;
     private ResourceType resourceType;
-    private Integer quantity;
 
     public FacilityModified(FacilityRequest aggregate) {
         super(aggregate);

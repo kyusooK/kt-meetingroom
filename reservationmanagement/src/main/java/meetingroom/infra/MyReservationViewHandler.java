@@ -40,5 +40,18 @@ public class MyReservationViewHandler {
             e.printStackTrace();
         }
     }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void whenReservationModified_then_UPDATE_1(
+        @Payload ReservationModified reservationModified
+    ) {
+        try {
+            if (!reservationModified.validate()) return;
+            // view 객체 조회
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     //>>> DDD / CQRS
 }

@@ -26,7 +26,6 @@
                 <String label="RoomName" v-model="item.roomName" :editMode="editMode" @change="change" />
             </div>
             <UserId offline label="UserId" v-model="item.userId" :editMode="false" :key="false" @change="change" />
-            <MeetingRoomId offline label="MeetingRoomId" v-model="item.meetingRoomId" :editMode="false" :key="false" @change="change" />
         </v-card-text>
 
         <v-card-actions>

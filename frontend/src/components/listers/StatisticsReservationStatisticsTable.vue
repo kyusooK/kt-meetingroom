@@ -68,8 +68,8 @@
                 [
                     { text: "statisticsId", value: "statisticsId" },
                     { text: "reservedCount", value: "reservedCount" },
-                    { text: "roomId", value: "roomId" },
                     { text: "reservationStatus", value: "reservationStatus" },
+                    { text: "roomName", value: "roomName" },
                 ],
             reservationStatistics : [],
             newValue: {},
@@ -89,8 +89,8 @@
             this.newValue = {
                 'statisticsId': 0,
                 'reservedCount': 0,
-                'roomId': 0,
                 'reservationStatus': '',
+                'roomName': '',
             }
         },
         methods: {

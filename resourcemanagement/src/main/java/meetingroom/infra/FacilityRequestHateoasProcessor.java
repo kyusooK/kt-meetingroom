@@ -14,6 +14,12 @@ public class FacilityRequestHateoasProcessor
     public EntityModel<FacilityRequest> process(
         EntityModel<FacilityRequest> model
     ) {
+        model.add(
+            Link
+                .of(model.getRequiredLink("self").getHref() + "/checkfacility")
+                .withRel("checkfacility")
+        );
+
         return model;
     }
 }

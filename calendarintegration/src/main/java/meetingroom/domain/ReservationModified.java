@@ -15,4 +15,5 @@ public class ReservationModified extends AbstractEvent {
     private String meetingName;
     private String location;
     private Object facilityRequestId;
+    private String roomName;
 }

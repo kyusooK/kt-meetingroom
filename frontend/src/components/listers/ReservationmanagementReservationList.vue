@@ -49,7 +49,6 @@
                             
                             
                             
-                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
@@ -62,7 +61,6 @@
                             [ FacilityRequestId :  {{data.facilityRequestId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ RoomName :  {{data.roomName }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ UserId :  {{data.userId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ MeetingRoomId :  {{data.meetingRoomId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -131,15 +129,14 @@
             
             this.newValue = {
                 'reservationId': 0,
-                'startDate': '2025-01-06',
-                'endDate': '2025-01-06',
+                'startDate': '2025-01-10',
+                'endDate': '2025-01-10',
                 'meetingName': '',
                 'location': '',
                 'reservationStatus': '',
                 'facilityRequestId': {},
                 'roomName': '',
                 'userId': {},
-                'meetingRoomId': {},
             }
         },
         methods: {

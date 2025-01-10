@@ -25,19 +25,6 @@ public class FacilityStatistics {
 
     private Integer facilityCount;
 
-    @PostPersist
-    public void onPostPersist() {
-        UsingFacilityAnalyzed usingFacilityAnalyzed = new UsingFacilityAnalyzed(
-            this
-        );
-        usingFacilityAnalyzed.publishAfterCommit();
-
-        UsingFacilityRegistered usingFacilityRegistered = new UsingFacilityRegistered(
-            this
-        );
-        usingFacilityRegistered.publishAfterCommit();
-    }
-
     public static FacilityStatisticsRepository repository() {
         FacilityStatisticsRepository facilityStatisticsRepository = StatisticsApplication.applicationContext.getBean(
             FacilityStatisticsRepository.class
@@ -46,9 +33,7 @@ public class FacilityStatistics {
     }
 
     //<<< Clean Arch / Port Method
-    public static void analyzeUsingFacility(
-        FacilityDecreased facilityDecreased
-    ) {
+    public static void analyzeUsingFacility(MeetingCompleted meetingCompleted) {
         //implement business logic here:
 
         /** Example 1:  new item 
@@ -61,8 +46,14 @@ public class FacilityStatistics {
 
         /** Example 2:  finding and process
         
+        // if meetingCompleted.facilityRequestIduserIdmeetingRoomId exists, use it
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
+        // Map<String, Object> reservationMap = mapper.convertValue(meetingCompleted.getUserId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getMeetingRoomId(), Map.class);
 
-        repository().findById(facilityDecreased.get???()).ifPresent(facilityStatistics->{
+        repository().findById(meetingCompleted.get???()).ifPresent(facilityStatistics->{
             
             facilityStatistics // do something
             repository().save(facilityStatistics);

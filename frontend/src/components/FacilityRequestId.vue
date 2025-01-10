@@ -1,7 +1,7 @@
 <template>
     <v-card outlined @click="openDialog">
         <v-card-title>
-            FacilityRequest : {{ referenceValue ? referenceValue.name : '' }}
+            FacilityRequest : {{ referenceValue ? referenceValue._links.self.href.split('/').pop() : '' }}
         </v-card-title>
 
         <v-dialog v-model="pickerDialog">
@@ -48,7 +48,7 @@
             }
             else {
                 this.newValue = this.value;
-                var path = '/facilityrequests';
+                var path = '/facilityRequests';
                 var temp = await axios.get(axios.fixUrl(path + '/' +  Object.values(this.value)[0]));
                 if(temp.data) {
                     this.referenceValue = temp.data
@@ -89,19 +89,19 @@
                 this.$emit('change', this.value);
             },
             openDialog() {
-                var path = '/facilityrequests/';
+                var path = '/facilityRequests/';
 
                 if(this.editMode) {
                     this.pickerDialog = true;
                 } else {
                     this.pickerDialog = false;
-                    this.$router.push(path + this.value.id);
+                    this.$router.push(path + this.value.facilityRequestId);
                 }
             },
             async pick(val){
                 this.newValue = val;
-                var path = '/facilityrequests';
-                var temp = await axios.get(axios.fixUrl(path + '/' + val.id));
+                var path = '/facilityRequests';
+                var temp = await axios.get(axios.fixUrl(path + '/' + val.facilityRequestId));
                 if(temp.data) {
                     this.referenceValue = temp.data;
                 }

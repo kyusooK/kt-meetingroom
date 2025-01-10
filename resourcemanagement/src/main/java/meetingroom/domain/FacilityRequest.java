@@ -9,9 +9,9 @@ import javax.persistence.*;
 import lombok.Data;
 import meetingroom.ResourcemanagementApplication;
 import meetingroom.domain.FacilityCreated;
-import meetingroom.domain.FacilityDecreased;
 import meetingroom.domain.FacilityDeleted;
 import meetingroom.domain.FacilityModified;
+import meetingroom.domain.FacilityStatusUpdated;
 
 @Entity
 @Table(name = "FacilityRequest_table")
@@ -26,19 +26,18 @@ public class FacilityRequest {
     @Enumerated(EnumType.STRING)
     private ResourceType resourceType;
 
-    private Integer quantity;
+    private Boolean isUsable;
 
     @PostPersist
     public void onPostPersist() {
         FacilityCreated facilityCreated = new FacilityCreated(this);
         facilityCreated.publishAfterCommit();
 
-        FacilityDecreased facilityDecreased = new FacilityDecreased(this);
-        facilityDecreased.publishAfterCommit();
+        FacilityStatusUpdated facilityStatusUpdated = new FacilityStatusUpdated(
+            this
+        );
+        facilityStatusUpdated.publishAfterCommit();
     }
-
-    @PrePersist
-    public void onPrePersist() {}
 
     @PreUpdate
     public void onPreUpdate() {
@@ -60,33 +59,43 @@ public class FacilityRequest {
     }
 
     //<<< Clean Arch / Port Method
-    public static void decreaseFacility(ReservationCreated reservationCreated) {
+    public void checkFacility(CheckFacilityCommand checkFacilityCommand) {
+        //implement business logic here:
+
+        FacilityChecked facilityChecked = new FacilityChecked(this);
+        facilityChecked.publishAfterCommit();
+    }
+
+    //>>> Clean Arch / Port Method
+
+    //<<< Clean Arch / Port Method
+    public static void updateFacilityStatus(MeetingCompleted meetingCompleted) {
         //implement business logic here:
 
         /** Example 1:  new item 
         FacilityRequest facilityRequest = new FacilityRequest();
         repository().save(facilityRequest);
 
-        FacilityDecreased facilityDecreased = new FacilityDecreased(facilityRequest);
-        facilityDecreased.publishAfterCommit();
+        FacilityStatusUpdated facilityStatusUpdated = new FacilityStatusUpdated(facilityRequest);
+        facilityStatusUpdated.publishAfterCommit();
         */
 
         /** Example 2:  finding and process
         
-        // if reservationCreated.facilityRequestIduserIdmeetingRoomId exists, use it
+        // if meetingCompleted.facilityRequestIduserIdmeetingRoomId exists, use it
         
         // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
+        // Map<String, Object> reservationMap = mapper.convertValue(meetingCompleted.getUserId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getMeetingRoomId(), Map.class);
 
-        repository().findById(reservationCreated.get???()).ifPresent(facilityRequest->{
+        repository().findById(meetingCompleted.get???()).ifPresent(facilityRequest->{
             
             facilityRequest // do something
             repository().save(facilityRequest);
 
-            FacilityDecreased facilityDecreased = new FacilityDecreased(facilityRequest);
-            facilityDecreased.publishAfterCommit();
+            FacilityStatusUpdated facilityStatusUpdated = new FacilityStatusUpdated(facilityRequest);
+            facilityStatusUpdated.publishAfterCommit();
 
          });
         */

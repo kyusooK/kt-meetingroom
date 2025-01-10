@@ -11,10 +11,10 @@
             <div>
                 <Number label="ReservedCount" v-model="item.reservedCount" :editMode="editMode" @change="change" />
             </div>
-            <div>
-                <Number label="RoomId" v-model="item.roomId" :editMode="editMode" @change="change" />
-            </div>
             <ReservationStatus offline label="ReservationStatus" v-model="item.reservationStatus" :editMode="false" :key="false" @change="change" />
+            <div>
+                <String label="RoomName" v-model="item.roomName" :editMode="editMode" @change="change" />
+            </div>
         </v-card-text>
 
         <v-card-actions>

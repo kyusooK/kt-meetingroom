@@ -43,12 +43,22 @@
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
                             [ NotificationId :  {{data.notificationId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Message :  {{data.message }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ UserId :  {{data.userId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ StartDate :  {{data.startDate }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ EndDate :  {{data.endDate }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ RoomName :  {{data.roomName }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Location :  {{data.location }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Message :  {{data.message }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ MeetingName :  {{data.meetingName }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -117,8 +127,13 @@
             
             this.newValue = {
                 'notificationId': 0,
-                'message': {},
-                'userId': {},
+                'userId': '',
+                'startDate': '2025-01-10',
+                'endDate': '2025-01-10',
+                'roomName': '',
+                'location': '',
+                'message': '',
+                'meetingName': '',
             }
         },
         methods: {

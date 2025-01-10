@@ -8,8 +8,27 @@
             <div>
                 <Number label="NotificationId" v-model="item.notificationId" :editMode="editMode" @change="change" />
             </div>
-            <Message offline label="Message" v-model="item.message" :editMode="false" :key="false" @change="change" />
-            <UserId offline label="UserId" v-model="item.userId" :editMode="false" :key="false" @change="change" />
+            <div>
+                <String label="UserId" v-model="item.userId" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <Date label="StartDate" v-model="item.startDate" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <Date label="EndDate" v-model="item.endDate" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="RoomName" v-model="item.roomName" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="Location" v-model="item.location" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="Message" v-model="item.message" :editMode="editMode" @change="change" />
+            </div>
+            <div>
+                <String label="MeetingName" v-model="item.meetingName" :editMode="editMode" @change="change" />
+            </div>
         </v-card-text>
 
         <v-card-actions>

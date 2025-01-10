@@ -22,23 +22,19 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long notificationId;
 
-    @Embedded
-    private Message message;
+    private String userId;
 
-    @Embedded
-    private UserId userId;
+    private Date startDate;
 
-    @PostPersist
-    public void onPostPersist() {
-        CalendarRegistered calendarRegistered = new CalendarRegistered(this);
-        calendarRegistered.publishAfterCommit();
+    private Date endDate;
 
-        NotificationSent notificationSent = new NotificationSent(this);
-        notificationSent.publishAfterCommit();
+    private String roomName;
 
-        CalendarDeleted calendarDeleted = new CalendarDeleted(this);
-        calendarDeleted.publishAfterCommit();
-    }
+    private String location;
+
+    private String message;
+
+    private String meetingName;
 
     public static NotificationRepository repository() {
         NotificationRepository notificationRepository = CalendarintegrationApplication.applicationContext.getBean(

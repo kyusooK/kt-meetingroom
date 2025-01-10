@@ -17,20 +17,33 @@
 
         <v-card-text style="background-color: white;">
             <Number v-if="editMode" label="NotificationId" v-model="value.notificationId" :editMode="editMode" :inputUI="''"/>
-            <Message offline label="message" v-model="value.message" :editMode="editMode" @change="change"/>
-            <UserId offline label="userId" v-model="value.userId" :editMode="editMode" @change="change"/>
+            <String label="UserId" v-model="value.userId" :editMode="editMode" :inputUI="''"/>
+            <Date label="StartDate" v-model="value.startDate" :editMode="editMode" :inputUI="''"/>
+            <Date label="EndDate" v-model="value.endDate" :editMode="editMode" :inputUI="''"/>
+            <String label="RoomName" v-model="value.roomName" :editMode="editMode" :inputUI="''"/>
+            <String label="Location" v-model="value.location" :editMode="editMode" :inputUI="''"/>
+            <String label="Message" v-model="value.message" :editMode="editMode" :inputUI="''"/>
+            <String label="MeetingName" v-model="value.meetingName" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">
             <v-spacer></v-spacer>
-            <v-btn
-                color="primary"
-                text
-                @click="edit"
-                v-if="!editMode"
-            >
-                수정
-            </v-btn>
+            <div v-if="!editMode">
+                <v-btn
+                    color="primary"
+                    text
+                    @click="edit"
+                >
+                    수정
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="remove"
+                >
+                    삭제
+                </v-btn>
+            </div>
             <div v-else>
                 <v-btn
                     color="primary"
@@ -38,14 +51,6 @@
                     @click="save"
                 >
                 저장
-                </v-btn>
-                <v-btn
-                    color="primary"
-                    text
-                    @click="remove"
-                    v-if="!editMode"
-                >
-                    삭제
                 </v-btn>
                 <v-btn
                     color="primary"

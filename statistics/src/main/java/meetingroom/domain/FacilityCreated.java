@@ -11,5 +11,5 @@ public class FacilityCreated extends AbstractEvent {
 
     private Long facilityRequestId;
     private Object resourceType;
-    private Integer quantity;
+    private Boolean isUsable;
 }

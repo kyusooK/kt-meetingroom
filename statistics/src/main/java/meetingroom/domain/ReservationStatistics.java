@@ -23,23 +23,10 @@ public class ReservationStatistics {
 
     private Integer reservedCount;
 
-    private Long roomId;
-
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 
-    @PostPersist
-    public void onPostPersist() {
-        MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(
-            this
-        );
-        meetingRoomReservationAnalyzed.publishAfterCommit();
-
-        MeetingRoomCancelAnalyzed meetingRoomCancelAnalyzed = new MeetingRoomCancelAnalyzed(
-            this
-        );
-        meetingRoomCancelAnalyzed.publishAfterCommit();
-    }
+    private String roomName;
 
     public static ReservationStatisticsRepository repository() {
         ReservationStatisticsRepository reservationStatisticsRepository = StatisticsApplication.applicationContext.getBean(

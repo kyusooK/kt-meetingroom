@@ -22,8 +22,8 @@
         data: () => ({
             headers: [
                 { text: "id", value: "id" },
-                { text: "roomId", value: "roomId" },
                 { text: "reservedCount", value: "reservedCount" },
+                { text: "roomName", value: "roomName" },
             ],
             roomUsage : [],
         }),

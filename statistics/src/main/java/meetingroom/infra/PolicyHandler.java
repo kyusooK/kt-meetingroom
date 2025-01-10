@@ -46,15 +46,15 @@ public class PolicyHandler {
 
     @StreamListener(
         value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='FacilityDecreased'"
+        condition = "headers['type']=='MeetingCompleted'"
     )
-    public void wheneverFacilityDecreased_AnalyzeUsingFacility(
-        @Payload FacilityDecreased facilityDecreased
+    public void wheneverMeetingCompleted_AnalyzeUsingFacility(
+        @Payload MeetingCompleted meetingCompleted
     ) {
-        FacilityDecreased event = facilityDecreased;
+        MeetingCompleted event = meetingCompleted;
         System.out.println(
             "\n\n##### listener AnalyzeUsingFacility : " +
-            facilityDecreased +
+            meetingCompleted +
             "\n\n"
         );
 

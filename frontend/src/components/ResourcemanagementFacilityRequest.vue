@@ -18,19 +18,27 @@
         <v-card-text style="background-color: white;">
             <Number v-if="editMode" label="FacilityRequestId" v-model="value.facilityRequestId" :editMode="editMode" :inputUI="''"/>
             <ResourceType offline label="설비 유형" v-model="value.resourceType" :editMode="editMode" @change="change"/>
-            <Number label="수량" v-model="value.quantity" :editMode="editMode" :inputUI="''"/>
+            <Boolean label="IsUsable" v-model="value.isUsable" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">
             <v-spacer></v-spacer>
-            <v-btn
-                color="primary"
-                text
-                @click="edit"
-                v-if="!editMode"
-            >
-                수정
-            </v-btn>
+            <div v-if="!editMode">
+                <v-btn
+                    color="primary"
+                    text
+                    @click="edit"
+                >
+                    수정
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="remove"
+                >
+                    삭제
+                </v-btn>
+            </div>
             <div v-else>
                 <v-btn
                     color="primary"
@@ -56,14 +64,6 @@
                 <v-btn
                     color="primary"
                     text
-                    @click="remove"
-                    v-if="!editMode"
-                >
-                    삭제
-                </v-btn>
-                <v-btn
-                    color="primary"
-                    text
                     @click="editMode = false"
                     v-if="editMode && !isNew"
                 >
@@ -73,6 +73,20 @@
         </v-card-actions>
         <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn
+                v-if="!editMode"
+                color="primary"
+                text
+                @click="openCheckFacility"
+            >
+                CheckFacility
+            </v-btn>
+            <v-dialog v-model="checkFacilityDiagram" width="500">
+                <CheckFacilityCommand
+                    @closeDialog="closeCheckFacility"
+                    @checkFacility="checkFacility"
+                ></CheckFacilityCommand>
+            </v-dialog>
         </v-card-actions>
 
         <v-snackbar
@@ -110,6 +124,7 @@
                 timeout: 5000,
                 text: '',
             },
+            checkFacilityDiagram: false,
         }),
 	async created() {
         },
@@ -206,6 +221,32 @@
             },
             change(){
                 this.$emit('input', this.value);
+            },
+            async checkFacility(params) {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['checkfacility'].href), params)
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                    this.closeCheckFacility();
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            openCheckFacility() {
+                this.checkFacilityDiagram = true;
+            },
+            closeCheckFacility() {
+                this.checkFacilityDiagram = false;
             },
         },
     }

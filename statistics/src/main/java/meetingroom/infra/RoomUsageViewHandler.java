@@ -27,10 +27,10 @@ public class RoomUsageViewHandler {
             // view 객체 생성
             RoomUsage roomUsage = new RoomUsage();
             // view 객체에 이벤트의 Value 를 set 함
-            roomUsage.setRoomId(meetingRoomReservationAnalyzed.getRoomId());
             roomUsage.setReservedCount(
                 meetingRoomReservationAnalyzed.getReservedCount()
             );
+            roomUsage.setRoomName(meetingRoomReservationAnalyzed.getRoomName());
             // view 레파지 토리에 save
             roomUsageRepository.save(roomUsage);
         } catch (Exception e) {
