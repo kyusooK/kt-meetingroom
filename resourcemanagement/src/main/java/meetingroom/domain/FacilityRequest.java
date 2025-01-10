@@ -73,7 +73,7 @@ public class FacilityRequest {
         ObjectMapper mapper = new ObjectMapper();
         Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
 
-        repository().findById((Long)reservationMap.get("facilityRequestId")).ifPresent(facilityRequest->{
+        repository().findById(Long.valueOf(reservationMap.get("facilityRequestId").toString())).ifPresent(facilityRequest->{
             
             facilityRequest.setIsUsable(false);
             repository().save(facilityRequest);

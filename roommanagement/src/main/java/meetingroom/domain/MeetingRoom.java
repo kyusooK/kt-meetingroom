@@ -63,7 +63,10 @@ public class MeetingRoom {
     //<<< Clean Arch / Port Method
     public static void updateRoomStatus(ReservationCreated reservationCreated) {
 
-        repository().findById(reservationCreated.getReservationId()).ifPresent(meetingRoom->{
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> meetingRoomMap = mapper.convertValue(reservationCreated.getMeetingRoomId(), Map.class);
+
+        repository().findById(Long.valueOf(meetingRoomMap.get("id").toString())).ifPresent(meetingRoom->{
             
             meetingRoom.setReservationStatus(ReservationStatus.RESERVED);
             repository().save(meetingRoom);
