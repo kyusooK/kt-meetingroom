@@ -9,16 +9,17 @@ import meetingroom.infra.AbstractEvent;
 //<<< DDD / Domain Event
 @Data
 @ToString
-public class FacilityModified extends AbstractEvent {
+public class FacilityChecked extends AbstractEvent {
 
     private Long facilityRequestId;
     private ResourceType resourceType;
+    private Boolean isUsable;
 
-    public FacilityModified(FacilityRequest aggregate) {
+    public FacilityChecked(FacilityRequest aggregate) {
         super(aggregate);
     }
 
-    public FacilityModified() {
+    public FacilityChecked() {
         super();
     }
 }

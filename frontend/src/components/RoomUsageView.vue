@@ -24,6 +24,7 @@
                 { text: "id", value: "id" },
                 { text: "roomName", value: "roomName" },
                 { text: "reservedCount", value: "reservedCount" },
+                { text: "roomName", value: "roomName" },
             ],
             roomUsage : [],
         }),

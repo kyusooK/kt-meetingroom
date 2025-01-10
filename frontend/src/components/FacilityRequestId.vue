@@ -89,7 +89,7 @@
                 this.$emit('change', this.value);
             },
             openDialog() {
-                var path = '/facilityrequests/';
+                var path = '/facilityRequests/';
 
                 if(this.editMode) {
                     this.pickerDialog = true;

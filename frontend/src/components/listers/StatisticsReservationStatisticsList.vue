@@ -49,8 +49,8 @@
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
                             [ StatisticsId :  {{data.statisticsId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ ReservedCount :  {{data.reservedCount }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ RoomId :  {{data.roomId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ ReservationStatus :  {{data.reservationStatus }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ RoomName :  {{data.roomName }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -120,8 +120,8 @@
             this.newValue = {
                 'statisticsId': 0,
                 'reservedCount': 0,
-                'roomId': 0,
                 'reservationStatus': '',
+                'roomName': '',
             }
         },
         methods: {

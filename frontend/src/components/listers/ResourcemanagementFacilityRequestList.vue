@@ -41,14 +41,14 @@
                     <v-list-item-content>
                         <v-list-item-title style="margin-bottom:10px;">
                             
-                            
+                             ResourceType 
                             
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
                             [ FacilityRequestId :  {{data.facilityRequestId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ ResourceType :  {{data.resourceType }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Quantity :  {{data.quantity }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ IsUsable :  {{data.isUsable }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -118,7 +118,7 @@
             this.newValue = {
                 'facilityRequestId': 0,
                 'resourceType': '',
-                'quantity': 0,
+                'isUsable': false,
             }
         },
         methods: {

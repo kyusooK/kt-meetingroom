@@ -1,15 +1,13 @@
 package meetingroom.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Data;
 import meetingroom.StatisticsApplication;
-import meetingroom.domain.UsingFacilityAnalyzed;
-import meetingroom.domain.UsingFacilityRegistered;
 
 @Entity
 @Table(name = "FacilityStatistics_table")
@@ -33,17 +31,23 @@ public class FacilityStatistics {
     }
 
     //<<< Clean Arch / Port Method
-    public static void analyzeUsingFacility(
-        FacilityDecreased facilityDecreased
-    ) {
-        repository().findByFacilityName(facilityDecreased.getResourceType().toString()).ifPresent(facilityStatistics->{
-            facilityStatistics.setFacilityCount(facilityStatistics.getFacilityCount() + 1);
-            repository().save(facilityStatistics);
+    public static void analyzeUsingFacility(MeetingCompleted meetingCompleted) {
 
-            UsingFacilityAnalyzed usingFacilityAnalyzed = new UsingFacilityAnalyzed(facilityStatistics);
-            usingFacilityAnalyzed.publishAfterCommit();
+        
+        // ObjectMapper mapper = new ObjectMapper();
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
+        // Map<String, Object> reservationMap = mapper.convertValue(meetingCompleted.getUserId(), Map.class);
+        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getMeetingRoomId(), Map.class);
 
-        });
+        // repository().findById(meetingCompleted.get???()).ifPresent(facilityStatistics->{
+            
+        //     facilityStatistics // do something
+        //     repository().save(facilityStatistics);
+
+        //     UsingFacilityAnalyzed usingFacilityAnalyzed = new UsingFacilityAnalyzed(facilityStatistics);
+        //     usingFacilityAnalyzed.publishAfterCommit();
+
+        // });
 
     }
 

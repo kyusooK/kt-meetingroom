@@ -106,8 +106,8 @@
             me.newValue = {
                 'statisticsId': 0,
                 'reservedCount': 0,
-                'roomId': 0,
                 'reservationStatus': '',
+                'roomName': '',
             }
         },
         methods:{

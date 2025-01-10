@@ -105,8 +105,13 @@
             
             me.newValue = {
                 'notificationId': 0,
-                'message': {},
-                'userId': {},
+                'userId': '',
+                'startDate': '2025-01-10',
+                'endDate': '2025-01-10',
+                'roomName': '',
+                'location': '',
+                'message': '',
+                'meetingName': '',
             }
         },
         methods:{

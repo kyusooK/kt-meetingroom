@@ -59,14 +59,6 @@
                 <v-btn
                     color="primary"
                     text
-                    @click="remove"
-                    v-if="!editMode"
-                >
-                    삭제
-                </v-btn>
-                <v-btn
-                    color="primary"
-                    text
                     @click="editMode = false"
                     v-if="editMode && !isNew"
                 >

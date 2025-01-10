@@ -1,24 +1,31 @@
 package meetingroom.domain;
 
-import meetingroom.external.MeetingRoom;
-import meetingroom.ReservationmanagementApplication;
-import javax.persistence.*;
+import java.util.Date;
+import java.util.Map;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
+import javax.persistence.Table;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import lombok.Data;
-import java.util.Date;
-import java.time.LocalDate;
-import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.Data;
+import meetingroom.ReservationmanagementApplication;
+import meetingroom.external.MeetingRoom;
 
 @Entity
-@Table(name="Reservation_table")
+@Table(name = "Reservation_table")
 @Data
-
 //<<< DDD / Aggregate Root
 public class Reservation  {
     
@@ -86,8 +93,10 @@ public class Reservation  {
         reservationModified.publishAfterCommit();
     }
 
-    public static ReservationRepository repository(){
-        ReservationRepository reservationRepository = ReservationmanagementApplication.applicationContext.getBean(ReservationRepository.class);
+    public static ReservationRepository repository() {
+        ReservationRepository reservationRepository = ReservationmanagementApplication.applicationContext.getBean(
+            ReservationRepository.class
+        );
         return reservationRepository;
     }
 

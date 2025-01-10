@@ -23,14 +23,22 @@
 
         <v-card-actions style="background-color: white;">
             <v-spacer></v-spacer>
-            <v-btn
-                color="primary"
-                text
-                @click="edit"
-                v-if="!editMode"
-            >
-                수정
-            </v-btn>
+            <div v-if="!editMode">
+                <v-btn
+                    color="primary"
+                    text
+                    @click="edit"
+                >
+                    수정
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="remove"
+                >
+                    삭제
+                </v-btn>
+            </div>
             <div v-else>
                 <v-btn
                     color="primary"
@@ -38,14 +46,6 @@
                     @click="save"
                 >
                 저장
-                </v-btn>
-                <v-btn
-                    color="primary"
-                    text
-                    @click="remove"
-                    v-if="!editMode"
-                >
-                    삭제
                 </v-btn>
                 <v-btn
                     color="primary"

@@ -67,8 +67,13 @@
             headers: 
                 [
                     { text: "notificationId", value: "notificationId" },
-                    { text: "message", value: "message" },
                     { text: "userId", value: "userId" },
+                    { text: "startDate", value: "startDate" },
+                    { text: "endDate", value: "endDate" },
+                    { text: "roomName", value: "roomName" },
+                    { text: "location", value: "location" },
+                    { text: "message", value: "message" },
+                    { text: "meetingName", value: "meetingName" },
                 ],
             notification : [],
             newValue: {},
@@ -87,8 +92,13 @@
 
             this.newValue = {
                 'notificationId': 0,
-                'message': {},
-                'userId': {},
+                'userId': '',
+                'startDate': '2025-01-10',
+                'endDate': '2025-01-10',
+                'roomName': '',
+                'location': '',
+                'message': '',
+                'meetingName': '',
             }
         },
         methods: {

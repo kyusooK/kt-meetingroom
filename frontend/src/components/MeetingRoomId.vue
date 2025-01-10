@@ -89,19 +89,19 @@
                 this.$emit('change', this.value);
             },
             openDialog() {
-                var path = '/meetingrooms/';
+                var path = '/meetingRooms/';
 
                 if(this.editMode) {
                     this.pickerDialog = true;
                 } else {
                     this.pickerDialog = false;
-                    this.$router.push(path + this.value.id);
+                    this.$router.push(path + this.value.meetingRoomId);
                 }
             },
             async pick(val){
                 this.newValue = val;
-                var path = '/meetingrooms';
-                var temp = await axios.get(axios.fixUrl(path + '/' + val.id));
+                var path = '/meetingRooms';
+                var temp = await axios.get(axios.fixUrl(path + '/' + val.meetingRoomId));
                 if(temp.data) {
                     this.referenceValue = temp.data;
                 }

@@ -106,7 +106,7 @@
             me.newValue = {
                 'facilityRequestId': 0,
                 'resourceType': '',
-                'quantity': 0,
+                'isUsable': false,
             }
         },
         methods:{

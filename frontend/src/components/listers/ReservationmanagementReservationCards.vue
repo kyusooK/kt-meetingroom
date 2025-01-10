@@ -105,15 +105,14 @@
             
             me.newValue = {
                 'reservationId': 0,
-                'startDate': '2025-01-06',
-                'endDate': '2025-01-06',
+                'startDate': '2025-01-10',
+                'endDate': '2025-01-10',
                 'meetingName': '',
                 'location': '',
                 'reservationStatus': '',
                 'facilityRequestId': {},
                 'roomName': '',
                 'userId': {},
-                'meetingRoomId': {},
             }
         },
         methods:{

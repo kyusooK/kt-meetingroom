@@ -10,7 +10,7 @@
             </div>
             <ResourceType offline label="ResourceType" v-model="item.resourceType" :editMode="false" :key="false" @change="change" />
             <div>
-                <Number label="Quantity" v-model="item.quantity" :editMode="editMode" @change="change" />
+                <Boolean label="IsUsable" v-model="item.isUsable" :editMode="editMode" @change="change" />
             </div>
         </v-card-text>
 

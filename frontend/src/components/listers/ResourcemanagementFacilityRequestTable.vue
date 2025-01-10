@@ -68,7 +68,7 @@
                 [
                     { text: "facilityRequestId", value: "facilityRequestId" },
                     { text: "resourceType", value: "resourceType" },
-                    { text: "quantity", value: "quantity" },
+                    { text: "isUsable", value: "isUsable" },
                 ],
             facilityRequest : [],
             newValue: {},
@@ -88,7 +88,7 @@
             this.newValue = {
                 'facilityRequestId': 0,
                 'resourceType': '',
-                'quantity': 0,
+                'isUsable': false,
             }
         },
         methods: {

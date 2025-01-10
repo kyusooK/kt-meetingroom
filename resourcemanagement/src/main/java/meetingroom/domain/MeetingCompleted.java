@@ -7,9 +7,8 @@ import meetingroom.infra.AbstractEvent;
 
 @Data
 @ToString
-public class FacilityCreated extends AbstractEvent {
+public class MeetingCompleted extends AbstractEvent {
 
-    private Long facilityRequestId;
-    private Object resourceType;
-    private Boolean isUsable;
+    private Long reservationId;
+    private Object reservationStatus;
 }

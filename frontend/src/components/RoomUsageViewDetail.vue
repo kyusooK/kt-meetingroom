@@ -7,10 +7,10 @@
 
         <v-card-text>
             <div>
-                <Number label="RoomId" v-model="item.roomId" :editMode="editMode" @change="change" />
+                <Number label="ReservedCount" v-model="item.reservedCount" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Number label="ReservedCount" v-model="item.reservedCount" :editMode="editMode" @change="change" />
+                <String label="RoomName" v-model="item.roomName" :editMode="editMode" @change="change" />
             </div>
         </v-card-text>
     </v-card>

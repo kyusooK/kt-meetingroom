@@ -37,11 +37,11 @@ mvn spring-boot:run
 ## Test by API
 - reservationmanagement
 ```
- http :8088/reservations reservationId="reservationId"startDate="startDate"endDate="endDate"meetingName="meetingName"location="location"ReservationStatus = "RESERVED"FacilityRequestId := '{"id": 0}'roomName="roomName"UserId := '{"id": 0}'MeetingRoomId := '{"id": 0}'
+ http :8088/reservations reservationId="reservationId"startDate="startDate"endDate="endDate"meetingName="meetingName"location="location"ReservationStatus = "RESERVED"FacilityRequestId := '{"id": 0}'roomName="roomName"UserId := '{"id": 0}'
 ```
 - calendarintegration
 ```
- http :8088/notifications notificationId="notificationId"Message := '{"location": location, "usingStartDate": null, "usingEndDate": null, "meetingName": meetingName, "reservationStatus": undefined}'UserId := '{"id": 0}'
+ http :8088/notifications notificationId="notificationId"userId="userId"startDate="startDate"endDate="endDate"roomName="roomName"location="location"message="message"meetingName="meetingName"
 ```
 - accesscontrol
 ```
@@ -49,11 +49,11 @@ mvn spring-boot:run
 ```
 - resourcemanagement
 ```
- http :8088/facilityRequests facilityRequestId="facilityRequestId"ResourceType = "CAM"quantity="quantity"
+ http :8088/facilityRequests facilityRequestId="facilityRequestId"ResourceType = "CAM"isUsable="isUsable"
 ```
 - statistics
 ```
- http :8088/reservationStatistics statisticsId="statisticsId"reservedCount="reservedCount"roomId="roomId"ReservationStatus = "RESERVED"
+ http :8088/reservationStatistics statisticsId="statisticsId"reservedCount="reservedCount"ReservationStatus = "RESERVED"roomName="roomName"
  http :8088/facilityStatistics facilityId="facilityId"facilityName="facilityName"facilityCount="facilityCount"
 ```
 - roommanagement

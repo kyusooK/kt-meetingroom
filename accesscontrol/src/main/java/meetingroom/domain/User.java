@@ -31,9 +31,6 @@ public class User {
         userRegistered.publishAfterCommit();
     }
 
-    @PrePersist
-    public void onPrePersist() {}
-
     public static UserRepository repository() {
         UserRepository userRepository = AccesscontrolApplication.applicationContext.getBean(
             UserRepository.class
