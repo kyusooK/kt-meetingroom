@@ -56,34 +56,32 @@ public class FacilityRequest {
 
     //<<< Clean Arch / Port Method
     public void checkFacility(CheckFacilityCommand checkFacilityCommand) {
-        //implement business logic here:
+        
+        repository().findById(getFacilityRequestId()).ifPresent(facilityRequest->{
+            
+            checkFacilityCommand.setIsUsable(true);
+            repository().save(facilityRequest);
 
-        FacilityChecked facilityChecked = new FacilityChecked(this);
-        facilityChecked.publishAfterCommit();
+            FacilityChecked facilityChecked = new FacilityChecked(this);
+            facilityChecked.publishAfterCommit();
+
+        });
     }
 
-    //>>> Clean Arch / Port Method
-
-    //<<< Clean Arch / Port Method
     public static void updateFacilityStatus(MeetingCompleted meetingCompleted) {
-
         
-        // if meetingCompleted.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(meetingCompleted.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getMeetingRoomId(), Map.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(meetingCompleted.getFacilityRequestId(), Map.class);
 
-        // repository().findById(meetingCompleted.get???()).ifPresent(facilityRequest->{
+        repository().findById((Long)reservationMap.get("facilityRequestId")).ifPresent(facilityRequest->{
             
-        //     facilityRequest.setQuantity(facilityRequest.getQuantity() - 1); // do something
-        //     repository().save(facilityRequest);
+            facilityRequest.setIsUsable(false);
+            repository().save(facilityRequest);
 
-        //     FacilityStatusUpdated facilityStatusUpdated = new FacilityStatusUpdated(facilityRequest);
-        //     facilityStatusUpdated.publishAfterCommit();
+            FacilityStatusUpdated facilityStatusUpdated = new FacilityStatusUpdated(facilityRequest);
+            facilityStatusUpdated.publishAfterCommit();
 
-        //  });
+         });
 
     }
     //>>> Clean Arch / Port Method

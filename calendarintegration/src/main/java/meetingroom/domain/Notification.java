@@ -47,7 +47,7 @@ public class Notification {
 
     public static void registerCalendar(ReservationCreated reservationCreated) {
         
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
         // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
 
         Notification notification = new Notification();

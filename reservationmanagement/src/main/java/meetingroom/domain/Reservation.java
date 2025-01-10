@@ -79,12 +79,15 @@ public class Reservation  {
             throw new IllegalStateException("해당 회의실에 대한 예약 권한이 없습니다.");
         }
     
+
         this.setReservationStatus(ReservationStatus.RESERVED);
         this.setLocation(findRoom.getLocation());
         this.setRoomName(findRoom.getRoomName());
+
+        repository().save(this);
+
         ReservationCreated reservationCreated = new ReservationCreated(this);
         reservationCreated.publishAfterCommit();
-    
     }
 
     @PostUpdate

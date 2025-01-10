@@ -13,6 +13,7 @@ public class MeetingCompleted extends AbstractEvent {
 
     private Long reservationId;
     private ReservationStatus reservationStatus;
+    private FacilityRequestId facilityRequestId;
 
     public MeetingCompleted(Reservation aggregate) {
         super(aggregate);

@@ -10,5 +10,6 @@ import meetingroom.infra.AbstractEvent;
 public class MeetingCompleted extends AbstractEvent {
 
     private Long reservationId;
+    private Object facilityRequestId;
     private Object reservationStatus;
 }
