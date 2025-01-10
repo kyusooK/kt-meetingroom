@@ -18,7 +18,6 @@ public class ReservationModified extends AbstractEvent {
     private String location;
     private String roomName;
     private FacilityRequestId facilityRequestId;
-    private String roomName;
 
     public ReservationModified(Reservation aggregate) {
         super(aggregate);
