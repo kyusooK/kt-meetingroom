@@ -100,3 +100,10 @@ sudo ./aws/install
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 ```
+
+example
+```
+http :8084/users userId=1 name=kyusoo rank=사원
+http :8087/meetingRooms roomName=소회의실 rank=사원 reservationStatus=AVAILABLED location="3층 301호"
+http :8082/reservations meetingName="TEST" startDate="2025-02-26" endDate="2025-02-27" userId:='{"userId":1}' meetingRoomId:='{"id":1}'
+```

@@ -79,16 +79,15 @@ public class Reservation  {
             throw new IllegalStateException("해당 회의실에 대한 예약 권한이 없습니다.");
         }
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
         meetingroom.external.Reservation reservation = new meetingroom.external.Reservation();
-        // mappings goes here
-        ReservationmanagementApplication.applicationContext
-            .getBean(meetingroom.external.ReservationService.class)
-            .createReservation(reservation);
-
-    
+        
+        reservation.setTaskId(this.getReservationId().toString());
+        reservation.setTitle("회의실 예약됨");
+        reservation.setDescription("회의실 위치: " + findRoom.getLocation() + " 회의실 이름: " + findRoom.getRoomName());
+        reservation.setNow(false);
+        reservation.setDueDate(this.getStartDate());
+        ReservationmanagementApplication.applicationContext.getBean(meetingroom.external.ReservationService.class).createReservation(reservation);
 
         this.setReservationStatus(ReservationStatus.RESERVED);
         this.setLocation(findRoom.getLocation());

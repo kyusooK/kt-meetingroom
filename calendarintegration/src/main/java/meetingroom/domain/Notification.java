@@ -1,5 +1,11 @@
 package meetingroom.domain;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,7 +24,6 @@ import meetingroom.domain.CalendarRegistered;
 @Entity
 @Table(name = "Notification_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Notification {
 
     @Id
@@ -26,33 +31,23 @@ public class Notification {
     private Long id;
 
     private String userId;
-
     private Date startDate;
-
     private Date endDate;
-
     private String roomName;
-
     private String location;
-
     private String message;
-
     private String meetingName;
 
     public static NotificationRepository repository() {
-        NotificationRepository notificationRepository = CalendarintegrationApplication.applicationContext.getBean(
-            NotificationRepository.class
-        );
-        return notificationRepository;
+        return CalendarintegrationApplication.applicationContext.getBean(NotificationRepository.class);
     }
 
     public static void registerCalendar(ReservationCreated reservationCreated) {
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
 
         Notification notification = new Notification();
-        // notification.setUserId((String)reservationMap.get("id"));
+        notification.setUserId(reservationMap.get("userId").toString());
         notification.setLocation(reservationCreated.getLocation());
         notification.setMeetingName(reservationCreated.getMeetingName());
         notification.setStartDate(reservationCreated.getStartDate());
@@ -60,11 +55,11 @@ public class Notification {
         notification.setRoomName(reservationCreated.getRoomName());
         repository().save(notification);
 
+        GoogleCalendarService.addEventToCalendar(notification);
+
         CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
         calendarRegistered.publishAfterCommit();
-
-        sendToUser(reservationCreated);
-
+     
     }
+
 }
-//>>> DDD / Aggregate Root

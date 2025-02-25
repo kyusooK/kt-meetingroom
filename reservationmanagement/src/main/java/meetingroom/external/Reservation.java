@@ -11,4 +11,5 @@ public class Reservation {
     private String title;
     private String description;
     private Date dueDate;
+    private Boolean now;
 }

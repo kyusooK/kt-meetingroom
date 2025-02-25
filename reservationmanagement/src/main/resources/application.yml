@@ -46,7 +46,8 @@ logging:
     org.springframework.cloud: debug
 
 api:
-  url: 
+  url:
+    reservation: localhost:8072
     roommanagement: localhost:8087
     
 
@@ -87,6 +88,7 @@ spring:
 
 api:
   url: 
+    reservation: localhost:8080
     reservationmanagement: reservationmanagement:8080 
     
 
