@@ -105,5 +105,5 @@ example
 ```
 http :8084/users userId=1 name=kyusoo rank=사원
 http :8087/meetingRooms roomName=소회의실 rank=사원 reservationStatus=AVAILABLED location="3층 301호"
-http :8082/reservations meetingName="TEST" startDate="2025-02-26" endDate="2025-02-27" userId:='{"userId":1}' meetingRoomId:='{"id":1}'
+http :8082/reservations meetingName="TEST" startDate="2025-02-26T09:00:00+09:00" endDate="2025-02-26T18:00:00+09:00" userId:='{"userId":1}' meetingRoomId:='{"id":1}'
 ```
