@@ -31,14 +31,14 @@
                         </v-fab-transition>
                     </template>
 
-                    <CalendarintegrationNotification :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <CalendarintegrationNotification :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="postition:absolute; top:2%; right:2%"
-                            @click="closeDialog()"
-                            depressed 
-                            icon 
-                            absolute
+                        class="gs-close-btn"
+                        @click="closeDialog()"
+                        depressed 
+                        icon 
+                        absolute
                     >
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
@@ -66,7 +66,7 @@
             values: [],
             headers: 
                 [
-                    { text: "notificationId", value: "notificationId" },
+                    { text: "id", value: "id" },
                     { text: "userId", value: "userId" },
                     { text: "startDate", value: "startDate" },
                     { text: "endDate", value: "endDate" },
@@ -91,10 +91,9 @@
             this.values = temp.data._embedded.notifications;
 
             this.newValue = {
-                'notificationId': 0,
                 'userId': '',
-                'startDate': '2025-01-10',
-                'endDate': '2025-01-10',
+                'startDate': '2025-02-25',
+                'endDate': '2025-02-25',
                 'roomName': '',
                 'location': '',
                 'message': '',

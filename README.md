@@ -41,7 +41,7 @@ mvn spring-boot:run
 ```
 - calendarintegration
 ```
- http :8088/notifications notificationId="notificationId"userId="userId"startDate="startDate"endDate="endDate"roomName="roomName"location="location"message="message"meetingName="meetingName"
+ http :8088/notifications id="id"userId="userId"startDate="startDate"endDate="endDate"roomName="roomName"location="location"message="message"meetingName="meetingName"
 ```
 - accesscontrol
 ```

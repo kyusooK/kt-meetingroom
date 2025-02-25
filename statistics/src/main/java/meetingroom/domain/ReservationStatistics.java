@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 import meetingroom.StatisticsApplication;
-import meetingroom.domain.MeetingRoomCancelAnalyzed;
 import meetingroom.domain.MeetingRoomReservationAnalyzed;
 
 @Entity
@@ -65,39 +64,6 @@ public class ReservationStatistics {
 
             MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(reservationStatistics);
             meetingRoomReservationAnalyzed.publishAfterCommit();
-
-         });
-        */
-
-    }
-
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
-    public static void analyzeCancelReservation(
-        ReservationCancelled reservationCancelled
-    ) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        ReservationStatistics reservationStatistics = new ReservationStatistics();
-        repository().save(reservationStatistics);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        // if reservationCancelled.facilityRequestIduserIdmeetingRoomId exists, use it
-        
-        // ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getFacilityRequestId(), Map.class);
-        // Map<String, Object> reservationMap = mapper.convertValue(reservationCancelled.getUserId(), Map.class);
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCancelled.getMeetingRoomId(), Map.class);
-
-        repository().findById(reservationCancelled.get???()).ifPresent(reservationStatistics->{
-            
-            reservationStatistics // do something
-            repository().save(reservationStatistics);
-
 
          });
         */

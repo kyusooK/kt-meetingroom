@@ -51,7 +51,7 @@
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
-                            [ NotificationId :  {{data.notificationId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Id :  {{data.id }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ UserId :  {{data.userId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ StartDate :  {{data.startDate }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ EndDate :  {{data.endDate }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -78,14 +78,14 @@
                         transition="dialog-bottom-transition"
                 >
 
-                    <CalendarintegrationNotification :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <CalendarintegrationNotification :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="postition:absolute; top:2%; right:2%"
-                            @click="closeDialog()"
-                            depressed 
-                            icon 
-                            absolute
+                        class="gs-close-btn"
+                        @click="closeDialog()"
+                        depressed 
+                        icon 
+                        absolute
                     >
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
@@ -126,10 +126,9 @@
             this.values = temp.data._embedded.notifications;
             
             this.newValue = {
-                'notificationId': 0,
                 'userId': '',
-                'startDate': '2025-01-10',
-                'endDate': '2025-01-10',
+                'startDate': '2025-02-25',
+                'endDate': '2025-02-25',
                 'roomName': '',
                 'location': '',
                 'message': '',
@@ -157,11 +156,5 @@
 
 
 <style>
-    .video-card {
-        width:300px; 
-        margin-left:4.5%; 
-        margin-top:50px; 
-        margin-bottom:50px;
-    }
 </style>
 

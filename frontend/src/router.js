@@ -16,6 +16,8 @@ import CalendarintegrationNotificationDetail from "./components/listers/Calendar
 import AccesscontrolUserManager from "./components/listers/AccesscontrolUserCards"
 import AccesscontrolUserDetail from "./components/listers/AccesscontrolUserDetail"
 
+import GetUserView from "./components/GetUserView"
+import GetUserViewDetail from "./components/GetUserViewDetail"
 import ResourcemanagementFacilityRequestManager from "./components/listers/ResourcemanagementFacilityRequestCards"
 import ResourcemanagementFacilityRequestDetail from "./components/listers/ResourcemanagementFacilityRequestDetail"
 
@@ -83,6 +85,16 @@ export default new Router({
                 component: AccesscontrolUserDetail
             },
 
+            {
+                path: '/accesscontrols/getUsers',
+                name: 'GetUserView',
+                component: GetUserView
+            },
+            {
+                path: '/accesscontrols/getUsers/:id',
+                name: 'GetUserViewDetail',
+                component: GetUserViewDetail
+            },
             {
                 path: '/resourcemanagements/facilityRequests',
                 name: 'ResourcemanagementFacilityRequestManager',
