@@ -31,14 +31,14 @@
                         </v-fab-transition>
                     </template>
 
-                    <ReservationmanagementReservation :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <ReservationmanagementReservation :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="postition:absolute; top:2%; right:2%"
-                            @click="closeDialog()"
-                            depressed 
-                            icon 
-                            absolute
+                        class="gs-close-btn"
+                        @click="closeDialog()"
+                        depressed 
+                        icon 
+                        absolute
                     >
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
@@ -93,8 +93,8 @@
 
             this.newValue = {
                 'reservationId': 0,
-                'startDate': '2025-01-10',
-                'endDate': '2025-01-10',
+                'startDate': '2025-02-25',
+                'endDate': '2025-02-25',
                 'meetingName': '',
                 'location': '',
                 'reservationStatus': '',

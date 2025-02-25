@@ -79,23 +79,5 @@ public class PolicyHandler {
         // Sample Logic //
         FacilityStatistics.registerUsingFacility(event);
     }
-
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='ReservationCancelled'"
-    )
-    public void wheneverReservationCancelled_AnalyzeCancelReservation(
-        @Payload ReservationCancelled reservationCancelled
-    ) {
-        ReservationCancelled event = reservationCancelled;
-        System.out.println(
-            "\n\n##### listener AnalyzeCancelReservation : " +
-            reservationCancelled +
-            "\n\n"
-        );
-
-        // Sample Logic //
-        ReservationStatistics.analyzeCancelReservation(event);
-    }
 }
 //>>> Clean Arch / Inbound Adaptor

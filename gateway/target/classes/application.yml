@@ -20,7 +20,7 @@ spring:
         - id: accesscontrol
           uri: http://localhost:8084
           predicates:
-            - Path=/users/**, 
+            - Path=/users/**, /getUsers/**
         - id: resourcemanagement
           uri: http://localhost:8085
           predicates:

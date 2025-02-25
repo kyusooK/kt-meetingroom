@@ -31,14 +31,14 @@
                         </v-fab-transition>
                     </template>
 
-                    <RoommanagementMeetingRoom :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <RoommanagementMeetingRoom :offline="offline"  :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="postition:absolute; top:2%; right:2%"
-                            @click="closeDialog()"
-                            depressed 
-                            icon 
-                            absolute
+                        class="gs-close-btn"
+                        @click="closeDialog()"
+                        depressed 
+                        icon 
+                        absolute
                     >
                         <v-icon>mdi-close</v-icon>
                     </v-btn>

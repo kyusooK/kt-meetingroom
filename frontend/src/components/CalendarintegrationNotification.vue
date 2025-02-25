@@ -1,5 +1,5 @@
 <template>
-    <v-card style="width:450px; height:100%;" outlined>
+    <v-card outlined>
         <template slot="progress">
             <v-progress-linear
                     color="primary-darker-1"
@@ -16,7 +16,6 @@
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <Number v-if="editMode" label="NotificationId" v-model="value.notificationId" :editMode="editMode" :inputUI="''"/>
             <String label="UserId" v-model="value.userId" :editMode="editMode" :inputUI="''"/>
             <Date label="StartDate" v-model="value.startDate" :editMode="editMode" :inputUI="''"/>
             <Date label="EndDate" v-model="value.endDate" :editMode="editMode" :inputUI="''"/>

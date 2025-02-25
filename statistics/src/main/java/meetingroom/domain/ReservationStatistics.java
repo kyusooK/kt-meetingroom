@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import meetingroom.StatisticsApplication;
+import meetingroom.domain.MeetingRoomReservationAnalyzed;
 
 @Entity
 @Table(name = "ReservationStatistics_table")
@@ -55,25 +56,6 @@ public class ReservationStatistics {
         MeetingRoomReservationAnalyzed meetingRoomReservationAnalyzed = new MeetingRoomReservationAnalyzed(reservationStatistics);
         meetingRoomReservationAnalyzed.publishAfterCommit();
         
-
-    }
-
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
-    public static void analyzeCancelReservation(
-        ReservationCancelled reservationCancelled
-    ) {
-        
-
-        repository().findById(reservationCancelled.getReservationId()).ifPresent(reservationStatistics->{
-            
-            reservationStatistics.setReservedCount(reservationStatistics.getReservedCount() - 1);
-            reservationStatistics.setReservationStatus(ReservationStatus.CANCELED);
-            repository().save(reservationStatistics);
-
-            MeetingRoomCancelAnalyzed meetingRoomCancelAnalyzed = new MeetingRoomCancelAnalyzed(reservationStatistics);
-            meetingRoomCancelAnalyzed.publishAfterCommit();
-        });
 
     }
     //>>> Clean Arch / Port Method

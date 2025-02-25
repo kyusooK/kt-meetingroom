@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 import meetingroom.CalendarintegrationApplication;
+import meetingroom.domain.CalendarRegistered;
 
 @Entity
 @Table(name = "Notification_table")
@@ -22,7 +23,7 @@ public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long notificationId;
+    private Long id;
 
     private String userId;
 
@@ -65,70 +66,5 @@ public class Notification {
         sendToUser(reservationCreated);
 
     }
-
-    public static void sendToUser(ReservationCreated reservationCreated) {
-        ObjectMapper mapper = new ObjectMapper();
-        // Map<Long, Object> reservationMap = mapper.convertValue(reservationCreated.getUserId(), Map.class);
-
-        repository().findById(reservationCreated.getReservationId()).ifPresent(notification->{
-
-            // notification.setUserId((String)reservationMap.get("userId"));
-            notification.setMessage(
-                reservationCreated.getMeetingName() + "회의가 예약되었습니다" 
-                + "장소:" + reservationCreated.getLocation() + "/" + reservationCreated.getRoomName() + 
-                " 예약 시간:" + reservationCreated.getStartDate() + "~" + reservationCreated.getEndDate()
-                );
-            repository().save(notification);
-
-            CalendarRegistered calendarRegistered = new CalendarRegistered(notification);
-            calendarRegistered.publishAfterCommit();
-
-        });
-
-    }
-
-    public static void sendToUser(ReservationModified reservationModified) {
-        
-        repository().findById(reservationModified.getReservationId()).ifPresent(notification->{
-            
-            notification.setMessage(
-                reservationModified.getMeetingName() + "회의가 변경되었습니다" + 
-                "장소:" + reservationModified.getLocation() + "/" + reservationModified.getRoomName() + 
-                " 예약 시간:" + reservationModified.getStartDate() + "~" + reservationModified.getEndDate()
-                );
-            repository().save(notification);
-    
-            CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
-            calendarDeleted.publishAfterCommit();
-    
-        });
-
-    }
-
-    public static void sendToUser(ReservationCancelled reservationCancelled) {
-        repository().findById(reservationCancelled.getReservationId()).ifPresent(notification->{
-            
-            notification.setMessage("회의가 취소되었습니다") ;
-            repository().save(notification);
-
-            CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
-            calendarDeleted.publishAfterCommit();
-
-        });
-    }
-
-    public static void deleteCalendar(
-        ReservationCancelled reservationCancelled
-    ) {
-        repository().findById(reservationCancelled.getReservationId()).ifPresent(notification->{
-            
-            repository().delete(notification);
-
-            CalendarDeleted calendarDeleted = new CalendarDeleted(notification);
-            calendarDeleted.publishAfterCommit();
-
-        });
-    }
-
 }
 //>>> DDD / Aggregate Root
