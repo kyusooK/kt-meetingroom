@@ -78,6 +78,16 @@ public class Reservation  {
             !userInfo.getBody().get("department").equals(findRoom.getDepartment())) {
             throw new IllegalStateException("해당 회의실에 대한 예약 권한이 없습니다.");
         }
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+        meetingroom.external.Reservation reservation = new meetingroom.external.Reservation();
+        // mappings goes here
+        ReservationmanagementApplication.applicationContext
+            .getBean(meetingroom.external.ReservationService.class)
+            .createReservation(reservation);
+
     
 
         this.setReservationStatus(ReservationStatus.RESERVED);
@@ -85,7 +95,6 @@ public class Reservation  {
         this.setRoomName(findRoom.getRoomName());
 
         repository().save(this);
-
         ReservationCreated reservationCreated = new ReservationCreated(this);
         reservationCreated.publishAfterCommit();
     }
