@@ -62,7 +62,7 @@ public class GoogleCalendarService {
                 .setEnd(end);
             
             // 이벤트 추가
-            String calendarId = "rbtn110@gmail.com"; // 기본 캘린더에 추가
+            String calendarId = "rbtn110@gmail.com"; // 연동할 구글 캘린더의 소유자 ID
             event = service.events().insert(calendarId, event).execute();
             System.out.printf("Event created: %s\n", event.getHtmlLink());
         } catch (IOException | GeneralSecurityException e) {
