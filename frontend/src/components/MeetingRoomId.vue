@@ -4,7 +4,7 @@
             MeetingRoom : {{ referenceValue ? referenceValue._links.self.href.split('/').pop() : '' }}
         </v-card-title>
 
-        <v-dialog v-model="pickerDialog">
+        <v-dialog v-model="pickerDialog" width="500">
             <v-card>
                 <v-card-title>MeetingRoom</v-card-title>
                 <v-card-text>

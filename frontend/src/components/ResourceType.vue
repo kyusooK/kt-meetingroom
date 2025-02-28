@@ -4,14 +4,14 @@
             ResourceType
         </v-card-title>
         <v-card-text>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-select
                         v-model="newValue"
                         :label="'name'"
                         :items="resourceTypeList"
                 ></v-select>
             </div>
-            <div v-else style="margin-top:-20px;">
+            <div v-else>
                 ResourceType : {{ value }}
             </div>
         </v-card-text>

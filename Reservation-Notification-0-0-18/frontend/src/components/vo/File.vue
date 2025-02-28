@@ -4,7 +4,7 @@
             {{label}}
         </v-card-title>
         <v-card-text v-if="value">
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-file-input label="파일 입려" v-model="file" @change="change"/>
             </div>
             <div v-else style="cursor: pointer;">

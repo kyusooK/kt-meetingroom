@@ -4,7 +4,7 @@
             {{label}}
         </v-card-title>
         <v-card-text v-if="value">
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Rate" v-model="value.rate" placeholder="1~5"/>
             </div>
             <div v-if="!editMode">
