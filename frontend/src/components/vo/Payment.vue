@@ -4,13 +4,13 @@
             {{label}}
         </v-card-title>
         <v-card-text v-if="value">
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field label="PaymentType" v-model="value.paymentType"/>
             </div>
             <div v-else>
                 PaymentType :  {{value.paymentType }}
             </div>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Amount" v-model="value.amount"/>
             </div>
             <div v-else>

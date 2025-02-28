@@ -156,16 +156,14 @@
             <v-container style="padding:0px;" v-else fluid>
                 <div style="width:100%; margin:0px 0px 20px 0px; position: relative;">
                     <v-img style="width:100%; height:300px;"
-                        src=""
+                        src="/image/cabinet.png"
                     ></v-img>
                     <div class="App-main-text-overlap"></div>
                     <div class="App-sub-text-overlap"></div>
                 </div>
                 <v-row class="pa-0 ma-0">
-                    <v-col cols="4" class="pa-0 pa-0" v-for="(aggregate, index) in aggregate" :key="index">
-                        <div 
-                            class="flip-card pa-4"
-                        >
+                    <v-col cols="12" lg="3" md="4" sm="6" class="pa-0 pa-0" v-for="(aggregate, index) in aggregate" :key="index">
+                        <div class="pa-4">
                             <v-card
                                 :key="aggregate.key"
                                 :to="aggregate.route"
@@ -207,72 +205,71 @@ export default {
                 description: 'Reservation을 관리하는 화면입니다.', 
                 key: 'reservations', 
                 route: '/reservationmanagements/reservations',
-                ImageUrl: '',
+                ImageUrl: '/image/reservation.png',
             },
             { 
                 title: '알림', 
                 description: 'Notification을 관리하는 화면입니다.', 
                 key: 'notifications', 
                 route: '/calendarintegrations/notifications',
-                ImageUrl: '',
+                ImageUrl: '/image/bell.png',
             },
             { 
                 title: '사용자', 
                 description: 'User을 관리하는 화면입니다.', 
                 key: 'users', 
                 route: '/accesscontrols/users',
-                ImageUrl: '',
+                ImageUrl: '/image/person.png',
             },
             { 
                 title: '설비 요청', 
                 description: 'FacilityRequest을 관리하는 화면입니다.', 
                 key: 'facilityRequests', 
                 route: '/resourcemanagements/facilityRequests',
-                ImageUrl: '',
+                ImageUrl: '/image/requirement.png',
             },
             { 
                 title: '예약분석', 
                 description: 'ReservationStatistics을 관리하는 화면입니다.', 
                 key: 'reservationStatistics', 
                 route: '/statistics/reservationStatistics',
-                ImageUrl: '',
+                ImageUrl: '/image/analysis.png',
             },
             { 
                 title: '시설분석', 
                 description: 'FacilityStatistics을 관리하는 화면입니다.', 
                 key: 'facilityStatistics', 
                 route: '/statistics/facilityStatistics',
-                ImageUrl: '',
+                ImageUrl: '/image/facilities-inspection.png',
             },
             { 
                 title: '회의실', 
                 description: 'MeetingRoom을 관리하는 화면입니다.', 
                 key: 'meetingRooms', 
                 route: '/roommanagements/meetingRooms',
-                ImageUrl: '',
+                ImageUrl: '/image/meeting.png',
             },
             { 
                 title: '예약 내역 조회', 
                 description: 'MyReservation을 관리하는 화면입니다.', 
                 key: 'myReservations', 
                 route: '/reservationmanagements/myReservations',
-                ImageUrl: '',
+                ImageUrl: '/image/document.png',
             },
             { 
                 title: '회의실 예약 및 이용률', 
                 description: 'RoomUsage을 관리하는 화면입니다.', 
                 key: 'roomUsages', 
                 route: '/statistics/roomUsages',
-                ImageUrl: '',
+                ImageUrl: '/image/interpretation.png',
             },
             { 
                 title: '설비 이력', 
                 description: 'FacilityHistory을 관리하는 화면입니다.', 
                 key: 'facilityHistories', 
                 route: '/statistics/facilityHistories',
-                ImageUrl: '',
+                ImageUrl: '/image/folder.png',
             },
-            
         ],
     }),
     

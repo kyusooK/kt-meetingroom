@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: roommanagement
-          image: "username/roommanagement:latest"
+          image: "user11registry.azurecr.io/roommanagement:0401"
           ports:
             - containerPort: 8080
           readinessProbe:

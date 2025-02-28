@@ -4,14 +4,14 @@
             ReservationStatus
         </v-card-title>
         <v-card-text>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-select
                         v-model="newValue"
                         :label="'name'"
                         :items="reservationStatusList"
                 ></v-select>
             </div>
-            <div v-else style="margin-top:-20px;">
+            <div v-else>
                 ReservationStatus : {{ value }}
             </div>
         </v-card-text>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="editMode" style="margin-top:-20px;">
+        <div v-if="editMode">
             <v-text-field type="number" :label="label" v-model="value" @change="change"/>
         </div>
         <div v-else>

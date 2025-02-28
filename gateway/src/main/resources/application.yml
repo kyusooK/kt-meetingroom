@@ -57,6 +57,16 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: reservation
+          uri: http://reservation:8080
+          predicates:
+            - Path=/reservations/**, 
+        - id: notification
+          uri: http://notification:8080
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
         - id: reservationmanagement
           uri: http://reservationmanagement:8080
           predicates:
@@ -81,10 +91,16 @@ spring:
           uri: http://roommanagement:8080
           predicates:
             - Path=/meetingRooms/**, 
+        - id: alarmpbcfe
+          uri: http://alarmpbcfe:8080
+          predicates:
+            - Path=/alarmpbcfe/**, 
         - id: frontend
           uri: http://frontend:8080
           predicates:
             - Path=/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -94,7 +110,13 @@ spring:
               - "*"
             allowedHeaders:
               - "*"
+            exposedHeaders:
+              - "X-Total-Count"
+              - "Link"
+              - "Access-Control-Allow-Origin"
+              - "Access-Control-Allow-Credentials"
             allowCredentials: true
+            maxAge: 3600
 
 server:
   port: 8080

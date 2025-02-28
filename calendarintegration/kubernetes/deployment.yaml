@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: calendarintegration
-          image: "username/calendarintegration:latest"
+          image: "user11registry.azurecr.io/calendarintegration:0401"
           ports:
             - containerPort: 8080
           readinessProbe:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: accesscontrol
-          image: "username/accesscontrol:latest"
+          image: "user11registry.azurecr.io/accesscontrol:0401"
           ports:
             - containerPort: 8080
           readinessProbe:

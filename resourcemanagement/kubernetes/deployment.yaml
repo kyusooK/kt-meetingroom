@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: resourcemanagement
-          image: "username/resourcemanagement:latest"
+          image: "user11registry.azurecr.io/resourcemanagement:0402"
           ports:
             - containerPort: 8080
           readinessProbe:

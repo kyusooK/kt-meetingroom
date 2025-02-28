@@ -9,13 +9,7 @@
 
         <v-col style="margin-bottom:40px;">
             <div class="text-center">
-                <v-dialog
-                        v-model="openDialog"
-                        width="332.5"
-                        fullscreen
-                        hide-overlay
-                        transition="dialog-bottom-transition"
-                >
+                <v-dialog v-model="openDialog" width="500">
                     <template v-slot:activator="{ on, attrs }">
                         <v-fab-transition>
                             <v-btn

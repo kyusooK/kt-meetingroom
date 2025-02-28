@@ -25,6 +25,8 @@
             <FacilityRequestId offline label="facilityRequestId" v-model="value.facilityRequestId" :editMode="editMode" @change="change"/>
             <String label="회의실명" v-model="value.roomName" :editMode="editMode" :inputUI="''"/>
             <UserId offline label="userId" v-model="value.userId" :editMode="editMode" @change="change"/>
+            <MeetingRoodId offline label="userId" v-model="value.meetingRoomId" :editMode="editMode" @change="change"/>
+
         </v-card-text>
 
         <v-card-actions style="background-color: white;">

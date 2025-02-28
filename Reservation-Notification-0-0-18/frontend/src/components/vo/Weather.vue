@@ -8,16 +8,16 @@
         </v-card-title>
 
         <v-card-text v-if="value">
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Degree" v-model="value.degree"/>
             </div>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Precipitation" v-model="value.precipitation"/>
             </div>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Humidity" v-model="value.humidity"/>
             </div>
-            <div v-if="editMode" style="margin-top:-20px;">
+            <div v-if="editMode">
                 <v-text-field type="number" label="Wind" v-model="value.wind"/>
             </div>
             <v-card

@@ -34,7 +34,7 @@ public class ReservationController {
             notificationData.put("description", reservation.getDescription());
 
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.postForEntity("http://localhost:8073/notifications/broadcast", 
+            restTemplate.postForEntity("http://notification:8080/notifications/broadcast", 
                                      notificationData, Object.class);
             return null;
         } else {
@@ -54,7 +54,7 @@ public class ReservationController {
                 notificationData.put("description", savedReservation.getDescription());
 
                 RestTemplate restTemplate = new RestTemplate();
-                restTemplate.postForEntity("http://localhost:8073/notifications/reminder", 
+                restTemplate.postForEntity("http://notification:8080/notifications/reminder", 
                                          notificationData, Object.class);
                 
                 return savedReservation;
