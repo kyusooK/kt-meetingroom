@@ -80,14 +80,14 @@ public class Reservation  {
         }
 
 
-        meetingroom.external.Reservation reservation = new meetingroom.external.Reservation();
+        // meetingroom.external.Reservation reservation = new meetingroom.external.Reservation();
         
-        reservation.setTaskId(this.getReservationId().toString());
-        reservation.setTitle("회의실 예약됨");
-        reservation.setDescription("회의실 위치: " + findRoom.getLocation() + " 회의실 이름: " + findRoom.getRoomName());
-        reservation.setNow(false);
-        reservation.setDueDate(this.getStartDate());
-        ReservationmanagementApplication.applicationContext.getBean(meetingroom.external.ReservationService.class).createReservation(reservation);
+        // reservation.setTaskId(this.getReservationId().toString());
+        // reservation.setTitle("회의실 예약됨");
+        // reservation.setDescription("회의실 위치: " + findRoom.getLocation() + " 회의실 이름: " + findRoom.getRoomName());
+        // reservation.setNow(false);
+        // reservation.setDueDate(this.getStartDate());
+        // ReservationmanagementApplication.applicationContext.getBean(meetingroom.external.ReservationService.class).createReservation(reservation);
 
         this.setReservationStatus(ReservationStatus.RESERVED);
         this.setLocation(findRoom.getLocation());
